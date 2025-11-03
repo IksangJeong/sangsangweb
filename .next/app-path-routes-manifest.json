@@ -1,0 +1,17 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]",
+  "/api/gallery/[id]/route": "/api/gallery/[id]",
+  "/api/gallery/route": "/api/gallery",
+  "/api/posts/[id]/route": "/api/posts/[id]",
+  "/api/posts/route": "/api/posts",
+  "/api/register/route": "/api/register",
+  "/(auth)/register/page": "/register",
+  "/board/[id]/page": "/board/[id]",
+  "/board/page": "/board",
+  "/(auth)/login/page": "/login",
+  "/board/write/page": "/board/write",
+  "/gallery/page": "/gallery",
+  "/gallery/upload/page": "/gallery/upload",
+  "/page": "/"
+}
