@@ -6,11 +6,12 @@ import { prisma } from '@/lib/prisma'
 // 게시글 상세 조회
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const post = await prisma.post.findUnique({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
       include: {
         user: {
           select: {
@@ -30,7 +31,7 @@ export async function GET(
 
     // 조회수 증가
     await prisma.post.update({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
       data: { views: { increment: 1 } },
     })
 
@@ -46,7 +47,7 @@ export async function GET(
 // 게시글 수정
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -59,10 +60,11 @@ export async function PUT(
     }
 
     const { title, content } = await request.json()
+    const { id } = await params
 
     // 작성자 확인
     const post = await prisma.post.findUnique({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
     })
 
     if (!post) {
@@ -80,7 +82,7 @@ export async function PUT(
     }
 
     const updatedPost = await prisma.post.update({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
       data: { title, content },
       include: {
         user: {
@@ -104,7 +106,7 @@ export async function PUT(
 // 게시글 삭제
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -116,9 +118,11 @@ export async function DELETE(
       )
     }
 
+    const { id } = await params
+
     // 작성자 확인
     const post = await prisma.post.findUnique({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
     })
 
     if (!post) {
@@ -136,7 +140,7 @@ export async function DELETE(
     }
 
     await prisma.post.delete({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
     })
 
     return NextResponse.json({ message: '게시글이 삭제되었습니다' })

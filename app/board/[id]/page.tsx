@@ -18,20 +18,28 @@ interface Post {
   }
 }
 
-export default function PostDetailPage({ params }: { params: { id: string } }) {
+export default function PostDetailPage({
+  params
+}: {
+  params: Promise<{ id: string }>
+}) {
   const { data: session } = useSession()
   const router = useRouter()
   const [post, setPost] = useState<Post | null>(null)
   const [loading, setLoading] = useState(true)
   const [deleting, setDeleting] = useState(false)
+  const [postId, setPostId] = useState<string>('')
 
   useEffect(() => {
-    fetchPost()
-  }, [params.id])
+    params.then(p => {
+      setPostId(p.id)
+      fetchPost(p.id)
+    })
+  }, [])
 
-  const fetchPost = async () => {
+  const fetchPost = async (id: string) => {
     try {
-      const response = await fetch(`/api/posts/${params.id}`)
+      const response = await fetch(`/api/posts/${id}`)
       const data = await response.json()
 
       if (response.ok) {
@@ -54,7 +62,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
 
     setDeleting(true)
     try {
-      const response = await fetch(`/api/posts/${params.id}`, {
+      const response = await fetch(`/api/posts/${postId}`, {
         method: 'DELETE',
       })
 

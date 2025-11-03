@@ -1,3 +1,17 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/gallery/[id]/route": "app/api/gallery/[id]/route.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/gallery/route": "app/api/gallery/route.js",
+  "/api/posts/route": "app/api/posts/route.js",
+  "/api/posts/[id]/route": "app/api/posts/[id]/route.js",
+  "/api/register/route": "app/api/register/route.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/(auth)/register/page": "app/(auth)/register/page.js",
+  "/board/[id]/page": "app/board/[id]/page.js",
+  "/board/page": "app/board/page.js",
+  "/board/write/page": "app/board/write/page.js",
+  "/gallery/page": "app/gallery/page.js",
+  "/gallery/upload/page": "app/gallery/upload/page.js",
   "/page": "app/page.js"
 }

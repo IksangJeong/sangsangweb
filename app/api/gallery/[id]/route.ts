@@ -8,7 +8,7 @@ import path from 'path'
 // 갤러리 삭제
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -20,9 +20,11 @@ export async function DELETE(
       )
     }
 
+    const { id } = await params
+
     // 작성자 확인
     const galleryItem = await prisma.gallery.findUnique({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
     })
 
     if (!galleryItem) {
@@ -49,7 +51,7 @@ export async function DELETE(
 
     // DB에서 삭제
     await prisma.gallery.delete({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(id) },
     })
 
     return NextResponse.json({ message: '사진이 삭제되었습니다' })
