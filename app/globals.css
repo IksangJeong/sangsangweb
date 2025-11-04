@@ -37,6 +37,28 @@
   background: white;
   width: 30px;
   border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mainSwiper .swiper-pagination-bullet-active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: bulletProgress 3800ms linear;
+}
+
+@keyframes bulletProgress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 :root {

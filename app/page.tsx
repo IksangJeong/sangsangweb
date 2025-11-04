@@ -13,6 +13,7 @@ import 'swiper/css/navigation'
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState(0)
+  const [progress, setProgress] = useState(0)
 
   // AOS 초기화
   useEffect(() => {
@@ -121,12 +122,16 @@ export default function Home() {
               overflow: 'hidden',
               zIndex: 10
             }}>
-              <span className="slide_progress-bar" style={{
-                display: 'block',
-                height: '100%',
-                backgroundColor: 'white',
-                animation: 'progressBar 3.8s linear infinite'
-              }}></span>
+              <span
+                key={progress}
+                className="slide_progress-bar"
+                style={{
+                  display: 'block',
+                  height: '100%',
+                  backgroundColor: 'white',
+                  animation: 'progressBar 3800ms linear'
+                }}
+              ></span>
             </div>
 
             {/* Main Swiper - 3개 슬라이드 */}
@@ -138,6 +143,7 @@ export default function Home() {
               slidesPerView={1}
               autoplay={{ delay: 3800, disableOnInteraction: false }}
               allowTouchMove={false}
+              onSlideChange={() => setProgress(prev => prev + 1)}
               pagination={{
                 clickable: true,
                 bulletClass: 'swiper-pagination-bullet',

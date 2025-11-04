@@ -117,11 +117,27 @@ export default function GalleryPage() {
 
             {/* 콘텐츠영역 */}
             <div id="sh_content" className="flex-1">
-              <div className="flex justify-end mb-6">
+              {/* 상단 검색 및 RSS */}
+              <div className="flex justify-between items-center mb-6">
+                <div className="flex gap-2">
+                  <select className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>제목</option>
+                  </select>
+                  <div className="flex">
+                    <input
+                      type="text"
+                      placeholder="검색어를 입력하세요"
+                      className="px-4 py-2 border border-gray-300 rounded-l-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
+                    />
+                    <button className="px-6 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-colors">
+                      검색
+                    </button>
+                  </div>
+                </div>
                 {session && (
                   <Link
                     href="/gallery/upload"
-                    className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all shadow-md hover:shadow-lg"
+                    className="px-6 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all shadow-md hover:shadow-lg text-sm"
                   >
                     사진 업로드
                   </Link>
@@ -141,31 +157,31 @@ export default function GalleryPage() {
                   ) : (
                     <>
                       {/* 갤러리 그리드 */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {gallery.map((item) => (
                           <div
                             key={item.id}
-                            className="card card-hover cursor-pointer"
+                            className="group cursor-pointer"
                             onClick={() => setSelectedImage(item)}
                           >
-                            <div className="relative h-56 bg-gray-200">
+                            <div className="relative h-48 bg-gray-100 rounded-lg overflow-hidden mb-3">
                               <Image
                                 src={item.filepath}
                                 alt={item.title}
                                 fill
-                                className="object-cover"
+                                className="object-cover transition-transform duration-300 group-hover:scale-110"
                               />
+                              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
                             </div>
-                            <div className="card-body">
-                              <h3 className="font-semibold text-slate-800 truncate">
-                                {item.title}
-                              </h3>
-                              <p className="text-sm text-slate-600 mt-1">
-                                {item.user.name}
-                              </p>
-                              <p className="text-xs text-slate-500 mt-1">
-                                {new Date(item.createdAt).toLocaleDateString('ko-KR')}
-                              </p>
+                            <div className="px-2">
+                              <div className="flex items-start justify-between gap-2 mb-2">
+                                <h3 className="font-medium text-slate-800 truncate text-sm flex-1">
+                                  {item.title}
+                                </h3>
+                                <span className="text-xs text-slate-500 flex-shrink-0">
+                                  {new Date(item.createdAt).toLocaleDateString('ko-KR')}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         ))}
