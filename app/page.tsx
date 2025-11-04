@@ -2,291 +2,531 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Pagination, EffectFade, Navigation } from 'swiper/modules'
+import { FaArrowRight } from 'react-icons/fa'
+import AOS from 'aos'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/effect-fade'
+import 'swiper/css/navigation'
 
 export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [activeTab, setActiveTab] = useState(0)
 
-  // 🎨 배너 이미지를 변경하려면 image 경로를 수정하세요!
-  // public/images/ 폴더에 이미지를 넣고 파일명을 입력하면 됩니다
-  const slides = [
-    {
-      title: '상상마루에 오신 것을 환영합니다',
-      subtitle: '꿈을 현실로 만드는 특별한 체험 공간',
-      image: '/images/banner1.jpg', // 👈 여기에 이미지 경로 입력
-      bg: 'bg-gradient-to-r from-gray-800 to-gray-900',
-    },
-    {
-      title: '다양한 진로 체험 프로그램',
-      subtitle: '나의 미래를 설계하는 시간',
-      image: '/images/banner2.jpg', // 👈 여기에 이미지 경로 입력
-      bg: 'bg-gradient-to-r from-gray-700 to-gray-900',
-    },
-    {
-      title: '생생한 직업 탐색',
-      subtitle: '실제로 체험하며 배우는 진로 교육',
-      image: '/images/banner3.jpg', // 👈 여기에 이미지 경로 입력
-      bg: 'bg-gradient-to-r from-black to-gray-800',
-    },
+  // AOS 초기화
+  useEffect(() => {
+    AOS.init({
+      duration: 400,
+      easing: 'ease',
+      once: false,
+      mirror: false,
+    })
+  }, [])
+
+  const notices = [
+    { id: 1, title: '상상마루 진로체험센터를 오픈하였습니다', date: '2025-01-15' },
+    { id: 2, title: '2025년 상반기 프로그램 일정 안내', date: '2025-01-10' },
+    { id: 3, title: '진로캠프 참가 신청 안내', date: '2025-01-05' },
   ]
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [slides.length])
+  const programs = [
+    { id: 1, title: '현장체험학습', description: '다양한 진로 현장 체험', image: '/images/program1.jpg' },
+    { id: 2, title: '진로캠프', description: '집중 진로 탐색 프로그램', image: '/images/program2.jpg' },
+    { id: 3, title: '직업체험', description: '실제 직업 세계 체험', image: '/images/program3.jpg' },
+    { id: 4, title: '진로상담', description: '1:1 맞춤 진로 상담', image: '/images/program4.jpg' },
+  ]
+
+  const newsData = [
+    [
+      { id: 1, category: '공지사항', title: '상상마루 진로체험센터를 오픈하였습니다', description: '학생들의 꿈을 응원하는 진로진학체험지원센터', date: '25.01.15' },
+      { id: 2, category: '공지사항', title: '2025년 상반기 프로그램 일정 안내', description: '2025년 상반기 진로체험 프로그램 일정을 안내드립니다', date: '25.01.10' },
+      { id: 3, category: '공지사항', title: '진로캠프 참가 신청 안내', description: '진로캠프 참가 신청을 받고 있습니다', date: '25.01.05' },
+    ],
+    [
+      { id: 1, category: '보도자료', title: '준비중입니다', description: '보도자료 준비중입니다', date: '25.01.15' },
+    ],
+  ]
 
   return (
-    <div>
-      {/* 히어로 섹션 - 캐러셀 */}
-      <section className="relative h-[500px] overflow-hidden">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            {/* 배경 이미지 또는 그라데이션 */}
-            {slide.image ? (
-              <div className="relative w-full h-full">
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  className="object-cover"
-                  priority={index === 0}
-                />
-                {/* 어두운 오버레이 (텍스트 가독성 향상) */}
-                <div className="absolute inset-0 bg-black/40" />
-              </div>
-            ) : (
-              <div className={`w-full h-full ${slide.bg}`} />
-            )}
-
-            {/* 텍스트 콘텐츠 */}
-            <div className="absolute inset-0 container mx-auto px-4 flex items-center justify-center">
-              <div className="text-center text-white z-10">
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
-                  {slide.title}
-                </h1>
-                <p className="text-xl md:text-2xl drop-shadow-lg">{slide.subtitle}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-
-        {/* 슬라이드 인디케이터 */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentSlide ? 'bg-white' : 'bg-white/50'
-              }`}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* 소개 영상 섹션 */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              상상마루를 소개합니다
-            </h2>
-            <p className="text-lg text-gray-600">
-              꿈을 현실로 만드는 특별한 체험 공간
-            </p>
-          </div>
-          <div className="max-w-5xl mx-auto">
-            <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-2xl relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-800/30 to-black/30"></div>
-              <div className="w-full h-full flex flex-col items-center justify-center text-white">
-                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-                <p className="text-lg">소개 영상 준비 중</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 프로그램 안내 - 세련된 카드 디자인 */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              프로그램 안내
-            </h2>
-            <p className="text-lg text-gray-600">
-              다양한 진로 체험 프로그램을 만나보세요
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {/* 현장체험 */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200">
-              <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-600 via-gray-700 to-gray-900"></div>
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-white">
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                  </div>
-                  <h3 className="text-3xl font-bold mb-2">현장체험</h3>
-                  <p className="text-white/90 text-center">다양한 현장 체험</p>
-                </div>
-              </div>
-              <div className="p-6">
-                <p className="text-gray-600 mb-4 leading-relaxed">
-                  실제 직업 현장을 방문하여 생생한 경험을 쌓을 수 있는 프로그램입니다.
-                  현직 전문가와 함께하는 멘토링을 통해 진로를 탐색해보세요.
-                </p>
-                <Link
-                  href="/board"
-                  className="inline-flex items-center text-black hover:text-gray-700 font-semibold group-hover:translate-x-1 transition-transform"
-                >
-                  자세히 보기
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* 진로캠프 */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200">
-              <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-700 via-gray-800 to-black"></div>
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-white">
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                  </div>
-                  <h3 className="text-3xl font-bold mb-2">진로캠프</h3>
-                  <p className="text-white/90 text-center">찾아가는 진로교육</p>
-                </div>
-              </div>
-              <div className="p-6">
-                <p className="text-gray-600 mb-4 leading-relaxed">
-                  학교로 찾아가는 맞춤형 진로 교육 프로그램입니다.
-                  체계적인 커리큘럼으로 학생들의 진로 탐색을 도와드립니다.
-                </p>
-                <Link
-                  href="/board"
-                  className="inline-flex items-center text-black hover:text-gray-700 font-semibold group-hover:translate-x-1 transition-transform"
-                >
-                  자세히 보기
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* 직업체험 */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200">
-              <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-600 via-gray-800 to-gray-900"></div>
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-white">
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-3xl font-bold mb-2">직업체험</h3>
-                  <p className="text-white/90 text-center">생생한 직업 탐색</p>
-                </div>
-              </div>
-              <div className="p-6">
-                <p className="text-gray-600 mb-4 leading-relaxed">
-                  다양한 직업을 직접 체험하며 자신의 적성과 흥미를 발견할 수 있는 프로그램입니다.
-                  실습 중심의 프로그램으로 진로를 구체화해보세요.
-                </p>
-                <Link
-                  href="/board"
-                  className="inline-flex items-center text-black hover:text-gray-700 font-semibold group-hover:translate-x-1 transition-transform"
-                >
-                  자세히 보기
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 연락처 섹션 - 간결한 디자인 */}
-      <section className="relative py-12 bg-gradient-to-br from-gray-800 via-gray-900 to-black text-white overflow-hidden">
-        {/* 배경 패턴 */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold mb-2">문의하기</h2>
-              <p className="text-sm text-white/80">
-                상상마루에 대해 궁금하신 점이 있으신가요?
+    <div id="sh_wrapper">
+      <div id="sh_container">
+        <div id="sh_container_wrapper">
+          {/* 메인 비주얼모션 */}
+          <div id="mainVisual" style={{ position: 'relative', height: '500px', overflow: 'hidden' }} className="md:h-[700px]">
+            <div className="txt_area" style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 10,
+              textAlign: 'center',
+              width: '100%',
+              padding: '0 20px'
+            }}>
+              <p className="tit text-3xl md:text-5xl lg:text-6xl" style={{
+                fontWeight: 'bold',
+                color: 'white',
+                lineHeight: '1.3',
+                marginBottom: '30px',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+              }}>
+                <b style={{ color: 'white' }}>더 큰 미래</b>를 더하고,<br />
+                <b style={{ color: 'white' }}>더 멋진 내일</b>을 배우는 곳
               </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* 이메일 문의 */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 hover:bg-white/20 transition-all">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-base font-bold text-center mb-1">이메일 문의</h3>
-                <p className="text-sm text-center mb-1">cybercops@wku.ac.kr</p>
-                <p className="text-xs text-center text-white/70">24시간 접수 가능</p>
-              </div>
-
-              {/* 방문 상담 */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 hover:bg-white/20 transition-all">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-base font-bold text-center mb-1">방문 상담</h3>
-                <p className="text-sm text-center mb-1">전북특별자치도 익산시</p>
-                <p className="text-xs text-center text-white/70">사전 예약 필수</p>
-              </div>
-
-              {/* 대표 정보 */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 hover:bg-white/20 transition-all">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-base font-bold text-center mb-1">대표</h3>
-                <p className="text-lg font-semibold text-center mb-1">조진욱</p>
-                <p className="text-xs text-center text-white/70">상상마루 대표</p>
+              <div className="txt_box" style={{ maxWidth: '800px', margin: '0 auto' }}>
+                <p className="txt text-sm md:text-base lg:text-lg hidden md:block" style={{
+                  color: 'rgba(255,255,255,0.95)',
+                  lineHeight: '1.8',
+                  marginBottom: '40px',
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+                }}>
+                  인재를 성장시키기 위해 성공적인 진로 가능 환경을 제공하는 상상마루는
+                  실용과 혁신, 글로벌의 가치 아래 지식과 역량을 넘어 유일성을 지향합니다.
+                </p>
+                <Link
+                  href="/board"
+                  className="btn"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    padding: '15px 40px',
+                    backgroundColor: 'white',
+                    color: '#2563eb',
+                    borderRadius: '50px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                    transition: 'all 0.3s'
+                  }}
+                >
+                  센터안내
+                  <FaArrowRight />
+                </Link>
               </div>
             </div>
+
+            {/* Progressbar */}
+            <div className="swiper-progress-bar active animate" style={{
+              position: 'absolute',
+              bottom: '40px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '300px',
+              height: '4px',
+              backgroundColor: 'rgba(255,255,255,0.3)',
+              borderRadius: '10px',
+              overflow: 'hidden',
+              zIndex: 10
+            }}>
+              <span className="slide_progress-bar" style={{
+                display: 'block',
+                height: '100%',
+                backgroundColor: 'white',
+                animation: 'progressBar 3.8s linear infinite'
+              }}></span>
+            </div>
+
+            {/* Main Swiper - 3개 슬라이드 */}
+            <Swiper
+              modules={[Autoplay, Pagination, EffectFade]}
+              effect="fade"
+              loop={true}
+              speed={1000}
+              slidesPerView={1}
+              autoplay={{ delay: 3800, disableOnInteraction: false }}
+              allowTouchMove={false}
+              pagination={{
+                clickable: true,
+                bulletClass: 'swiper-pagination-bullet',
+                bulletActiveClass: 'swiper-pagination-bullet-active',
+              }}
+              className="mainSwiper"
+              style={{ width: '100%', height: '100%' }}
+            >
+              {/* 슬라이드 1 */}
+              <SwiperSlide className="img01" style={{
+                width: '100%',
+                height: '100%'
+              }}>
+                <div style={{
+                  width: '100%',
+                  height: '100%',
+                  backgroundImage: 'url("/images/banner1.jpg")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}></div>
+              </SwiperSlide>
+
+              {/* 슬라이드 2 */}
+              <SwiperSlide className="img02" style={{
+                width: '100%',
+                height: '100%'
+              }}>
+                <div style={{
+                  width: '100%',
+                  height: '100%',
+                  backgroundImage: 'url("/images/banner2.jpg")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}></div>
+              </SwiperSlide>
+
+              {/* 슬라이드 3 */}
+              <SwiperSlide className="img03" style={{
+                width: '100%',
+                height: '100%'
+              }}>
+                <div style={{
+                  width: '100%',
+                  height: '100%',
+                  backgroundImage: 'url("/images/banner3.jpg")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}></div>
+              </SwiperSlide>
+            </Swiper>
           </div>
+
+          {/*인덱스 영역*/}
+          <section id="sh_section">
+            {/* Article 01 - 입학문의 + 빠른메뉴 */}
+            <article id="atc01" style={{ padding: '80px 0', backgroundColor: 'white' }}>
+              <div className="inner" data-aos="fade-up" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+                <div style={{
+                  backgroundColor: '#f8fafc',
+                  borderRadius: '20px',
+                  padding: '60px',
+                  marginBottom: '40px',
+                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                }}>
+                  <div className="grid grid-cols-1 lg:grid-cols-[300px,1fr] gap-8 lg:gap-10 items-center">
+                    {/* 입학문의 */}
+                    <div className="txt_box" style={{ textAlign: 'center' }}>
+                      <span style={{ color: '#64748b', fontSize: '14px', fontWeight: '600' }}>상담 및 문의</span>
+                      <p className="num" style={{
+                        fontSize: '48px',
+                        fontWeight: 'bold',
+                        color: '#2563eb',
+                        margin: '10px 0'
+                      }}>1544-0634</p>
+                      <p className="cs" style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6' }}>
+                        Fax. 0505-200-6060<br />
+                        E-mail. cybercops@wku.ac.kr
+                      </p>
+                    </div>
+
+                    {/* 빠른메뉴 버튼 */}
+                    <div className="btn_box">
+                      <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 list-none p-0 m-0">
+                        {[
+                          {
+                            name: '센터안내',
+                            link: '/board',
+                            color: '#3b82f6',
+                            icon: (
+                              <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clipRule="evenodd" />
+                              </svg>
+                            )
+                          },
+                          {
+                            name: '강사소개',
+                            link: '/board',
+                            color: '#10b981',
+                            icon: (
+                              <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                              </svg>
+                            )
+                          },
+                          {
+                            name: '프로그램안내',
+                            link: '/board',
+                            color: '#f59e0b',
+                            icon: (
+                              <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                                <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                              </svg>
+                            )
+                          },
+                          {
+                            name: '체험프로그램',
+                            link: '/board',
+                            color: '#8b5cf6',
+                            icon: (
+                              <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+                              </svg>
+                            )
+                          },
+                          {
+                            name: '자료실',
+                            link: '/board',
+                            color: '#ef4444',
+                            icon: (
+                              <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z" clipRule="evenodd" />
+                                <path d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
+                              </svg>
+                            )
+                          },
+                        ].map((item, idx) => (
+                          <li key={idx}>
+                            <Link href={item.link} style={{ textDecoration: 'none' }}>
+                              <div style={{
+                                backgroundColor: 'white',
+                                padding: '30px 20px',
+                                borderRadius: '15px',
+                                textAlign: 'center',
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                transition: 'all 0.3s',
+                                cursor: 'pointer'
+                              }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.transform = 'translateY(-8px)'
+                                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.15)'
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.transform = 'translateY(0)'
+                                  e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)'
+                                }}
+                              >
+                                <div className="icon" style={{
+                                  width: '80px',
+                                  height: '80px',
+                                  margin: '0 auto 15px',
+                                  backgroundColor: `${item.color}15`,
+                                  borderRadius: '50%',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
+                                }}>
+                                  <div style={{ color: item.color }}>
+                                    {item.icon}
+                                  </div>
+                                </div>
+                                <p style={{
+                                  fontSize: '15px',
+                                  fontWeight: '600',
+                                  color: '#334155',
+                                  margin: 0
+                                }}>{item.name}</p>
+                              </div>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* notice */}
+                <div className="notice" data-aos="fade-up" style={{
+                  backgroundColor: 'white',
+                  borderRadius: '15px',
+                  padding: '30px 40px',
+                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                }}>
+                  <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
+                    <div className="cont_box">
+                      <Link href="/board" style={{
+                        fontSize: '20px',
+                        fontWeight: 'bold',
+                        color: '#2563eb',
+                        textDecoration: 'none'
+                      }}>
+                        NOTICE
+                      </Link>
+                    </div>
+                    <div className="txt_box" style={{ flex: 1 }}>
+                      <Swiper
+                        modules={[Autoplay]}
+                        direction="vertical"
+                        autoplay={{ delay: 2500, disableOnInteraction: false }}
+                        loop={true}
+                        slidesPerView={1}
+                        speed={600}
+                        className="sh_lt"
+                        style={{ height: '30px' }}
+                      >
+                        {notices.map((notice) => (
+                          <SwiperSlide key={notice.id}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                              <span className="sh_notice" style={{ flex: 1 }}>
+                                <Link href={`/board/${notice.id}`} style={{
+                                  color: '#334155',
+                                  textDecoration: 'none',
+                                  fontSize: '15px'
+                                }}>
+                                  {notice.title}
+                                </Link>
+                              </span>
+                              <span className="datetime" style={{
+                                fontSize: '14px',
+                                color: '#94a3b8'
+                              }}>
+                                {notice.date}
+                              </span>
+                            </div>
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            {/* Article 02 - 프로그램 슬라이더 */}
+            <article id="atc02" className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-slate-50 to-white">
+              <div className="inner" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+                <div className="txt_all mb-12 md:mb-16" data-aos="fade-right" data-aos-duration="1000">
+                  <p className="text-blue-600 text-sm font-semibold mb-3">MAJOR INFORMATION</p>
+                  <div className="tit_area">
+                    <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight mb-4 md:mb-5">
+                      학생들의 꿈이 자라나는<br />
+                      <span className="text-blue-600">상상마루 진로체험센터입니다.</span>
+                    </p>
+                    <p className="text-sm md:text-base text-slate-600 leading-relaxed hidden md:block">
+                      다양한 진로 체험 프로그램을 통해<br />
+                      학생들의 미래를 함께 만들어갑니다.
+                    </p>
+                  </div>
+                </div>
+
+                <div data-aos="fade-left" data-aos-duration="1000" style={{ padding: '30px 20px', overflow: 'visible' }}>
+                  <Swiper
+                    modules={[Autoplay, Navigation]}
+                    slidesPerView={1}
+                    spaceBetween={30}
+                    loop={true}
+                    autoplay={{ delay: 5000, disableOnInteraction: false }}
+                    navigation={true}
+                    breakpoints={{
+                      640: { slidesPerView: 2 },
+                      1024: { slidesPerView: 4 },
+                    }}
+                    className="main_slide program-slider"
+                    style={{ overflow: 'visible' }}
+                  >
+                    {programs.map((program) => (
+                      <SwiperSlide key={program.id}>
+                        <Link href="/board" className="no-underline block">
+                          <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                            <div
+                              className="h-48 md:h-56 lg:h-64 bg-cover bg-center relative"
+                              style={{
+                                backgroundImage: `url(${program.image})`,
+                              }}
+                            >
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end justify-center p-6">
+                                <p className="text-xl md:text-2xl lg:text-3xl font-bold text-white m-0 text-center drop-shadow-lg">
+                                  {program.title}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="p-6 md:p-7 lg:p-8">
+                              <p className="text-sm md:text-base text-slate-600 leading-relaxed m-0">
+                                {program.description}
+                              </p>
+                            </div>
+                          </div>
+                        </Link>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </div>
+            </article>
+
+            {/* Article 03 - 뉴스 탭 */}
+            <article id="atc03" className="py-16 md:py-20 lg:py-24 bg-white">
+              <div className="inner" data-aos="fade-down" data-aos-duration="1500" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+                <div className="txt_all mb-12 md:mb-16">
+                  <p className="text-blue-600 text-sm font-semibold mb-3">LATEST NEWS</p>
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-8 md:mb-10 gap-6">
+                    <div className="tit_area">
+                      <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight">
+                        믿음의 센터, 믿을 수 있는 인재<br />
+                        <span className="text-blue-600">상상마루에서 꿈을 펼쳐보세요.</span>
+                      </p>
+                    </div>
+                    <div className="tabs_wrap relative">
+                      <div
+                        className="active absolute bottom-0 h-1 bg-blue-600 transition-all duration-300"
+                        style={{
+                          left: activeTab === 0 ? '0%' : '50%',
+                          width: '50%'
+                        }}
+                      ></div>
+                      <ul className="flex gap-6 md:gap-10 list-none p-0 m-0">
+                        <li
+                          onClick={() => setActiveTab(0)}
+                          className={`cursor-pointer pb-3 md:pb-4 text-base md:text-lg font-semibold transition-colors ${
+                            activeTab === 0 ? 'text-blue-600' : 'text-slate-400'
+                          }`}
+                        >
+                          공지사항
+                        </li>
+                        <li
+                          onClick={() => setActiveTab(1)}
+                          className={`cursor-pointer pb-3 md:pb-4 text-base md:text-lg font-semibold transition-colors ${
+                            activeTab === 1 ? 'text-blue-600' : 'text-slate-400'
+                          }`}
+                        >
+                          보도자료
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="lt_wrap" data-aos="fade-up" data-aos-duration="1000">
+                  <div className="latest_wrap">
+                    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 list-none p-0 m-0">
+                      {newsData[activeTab].map((item) => (
+                        <li key={item.id}>
+                          <Link
+                            href={`/board/${item.id}`}
+                            className="no-underline"
+                          >
+                            <div className="bg-white rounded-2xl p-6 md:p-7 lg:p-8 border border-slate-200 hover:border-blue-600 hover:shadow-xl transition-all duration-300">
+                              <p className="text-blue-600 text-xs md:text-sm font-semibold mb-3">
+                                {item.category}
+                              </p>
+                              <p className="text-base md:text-lg font-bold text-slate-900 mb-3 md:mb-4 leading-snug">
+                                {item.title}
+                              </p>
+                              <p className="text-sm md:text-base text-slate-600 mb-4 md:mb-5 leading-relaxed">
+                                {item.description}
+                              </p>
+                              <span className="text-xs text-slate-400">
+                                {item.date}
+                              </span>
+                            </div>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="text-center mt-10 md:mt-12 lg:mt-14">
+                      <Link
+                        href="/board"
+                        className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm md:text-base font-semibold no-underline transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                      >
+                        더보기<span>+</span>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
         </div>
-      </section>
+      </div>
     </div>
   )
 }

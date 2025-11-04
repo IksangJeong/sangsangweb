@@ -1,74 +1,131 @@
+'use client'
+
+import Link from 'next/link'
+
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 border-t border-gray-200">
-      {/* 상단 정보 섹션 */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-          {/* 왼쪽: 회사 정보 */}
-          <div className="flex-1">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-xl">상</span>
+    <>
+      {/* 상단 네비게이션 (ft_nav) */}
+      <ul className="ft_nav bg-slate-100 border-t border-slate-200 flex flex-wrap items-center justify-center gap-4 md:gap-8 px-4 py-4 m-0 list-none">
+        <li>
+          <button
+            onClick={() => window.open('/terms', 'terms', 'width=600,height=900,left=150,top=0,scrollbars=yes')}
+            className="text-sm text-slate-600 hover:text-blue-600 transition-colors font-medium cursor-pointer"
+          >
+            이용약관
+          </button>
+        </li>
+        <li>
+          <button
+            onClick={() => window.open('/privacy', 'privacy', 'width=600,height=900,left=150,top=0,scrollbars=yes')}
+            className="text-sm text-slate-700 hover:text-blue-600 transition-colors font-semibold cursor-pointer"
+          >
+            개인정보취급방침
+          </button>
+        </li>
+        <li>
+          <Link
+            href="/board"
+            className="text-sm text-slate-600 hover:text-blue-600 transition-colors"
+          >
+            센터안내
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/gallery"
+            className="text-sm text-slate-600 hover:text-blue-600 transition-colors"
+          >
+            갤러리
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/board"
+            className="text-sm text-slate-600 hover:text-blue-600 transition-colors"
+          >
+            커뮤니티
+          </Link>
+        </li>
+      </ul>
+
+      {/* 메인 푸터 (sh_ft) */}
+      <div id="sh_ft" className="bg-white border-t border-slate-200">
+        <div id="sh_ft_wrapper" className="container-custom py-10">
+          <div className="ft_box">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr,auto] gap-8 items-start">
+              {/* 왼쪽: 로고 & 정보 */}
+              <div className="ft_inner space-y-5">
+                {/* 로고 */}
+                <div className="tit">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-md">
+                      <span className="text-white font-bold text-xl">상</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xl font-bold text-gradient leading-tight">
+                        상상마루
+                      </span>
+                      <span className="text-xs text-slate-500 font-medium">진로진학체험지원센터</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 회사 정보 */}
+                <div className="info text-sm text-slate-600 leading-relaxed space-y-1">
+                  <p>전북특별자치도 익산시  원광대학교 프라임관 </p>
+                  <p>
+                    <span className="font-semibold">사업자번호:</span> 651-86-01854 (등록 2006년) |
+                    <span className="font-semibold ml-1">대표:</span> 조진욱
+                  </p>
+                  <p>
+                    <span className="font-semibold">대표번호:</span> 1544-0634 |
+                    <span className="font-semibold ml-1">팩스:</span> 0505-200-6060 |
+                    <span className="font-semibold ml-1">이메일:</span> cybercops@wku.ac.kr
+                  </p>
+
+                  {/* 링크 영역 */}
+                  <div className="ft_link flex flex-wrap items-center gap-4 pt-4">
+                    <div className="copy text-slate-500 font-medium">
+                      ⓒ 유한회사 상상마루 진로진학체험지원센터
+                    </div>
+                    <ul className="link flex items-center gap-3 m-0 p-0 list-none">
+                      <li>
+                        <Link
+                          href="/admin"
+                          className="text-sm text-slate-500 hover:text-blue-600 transition-colors font-medium"
+                        >
+                          ADMIN
+                        </Link>
+                      </li>
+                      <li>
+                        <a
+                          href="https://www.wku.ac.kr"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-slate-500 hover:text-blue-600 transition-colors font-medium"
+                        >
+                          원광대학교
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-900">상상마루</h3>
-            </div>
 
-            <div className="space-y-1 text-sm text-gray-600">
-              <p>상호: 유한회사 상상마루</p>
-              <p>대표: 조진욱</p>
-              <p>사업자등록번호: 651-86-01854</p>
-              <p>업태: 교육서비스, 제조업</p>
-            </div>
-          </div>
-
-          {/* 중앙: 빠른 링크 */}
-          <div className="flex-1">
-            <h4 className="text-sm font-bold text-gray-900 mb-3">빠른 링크</h4>
-            <ul className="grid grid-cols-2 gap-2 text-sm text-gray-600">
-              <li><a href="/" className="hover:text-black transition-colors">센터 소개</a></li>
-              <li><a href="/board" className="hover:text-black transition-colors">프로그램 안내</a></li>
-              <li><a href="/gallery" className="hover:text-black transition-colors">갤러리</a></li>
-              <li><a href="/board" className="hover:text-black transition-colors">커뮤니티</a></li>
-            </ul>
-          </div>
-
-          {/* 오른쪽: 연락처 */}
-          <div className="flex-1">
-            <h4 className="text-sm font-bold text-gray-900 mb-3">문의하기</h4>
-            <div className="space-y-2 text-sm text-gray-600">
-              <p className="flex items-center">
-                <svg className="w-4 h-4 mr-2 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                cybercops@wku.ac.kr
-              </p>
-              <p className="flex items-center">
-                <svg className="w-4 h-4 mr-2 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                전북특별자치도 익산시
-              </p>
+              {/* 오른쪽: 입학관련문의 (cs) */}
+              <div className="cs bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl px-8 py-6 shadow-sm border border-blue-200">
+                <p className="tit text-sm text-blue-700 font-semibold mb-2">상담 및 문의</p>
+                <p className="tel text-3xl font-bold text-blue-600 mb-3">1544-0634</p>
+                <div className="text-sm text-slate-600 leading-relaxed space-y-0.5">
+                  <p><span className="font-semibold">Fax.</span> 0505-200-6060</p>
+                  <p><span className="font-semibold">E-mail.</span> cybercops@wku.ac.kr</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* 하단 저작권 섹션 */}
-      <div className="bg-gray-200 border-t border-gray-300">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-            <p className="mb-2 md:mb-0">
-              Copyright © 2025 상상마루. All Rights Reserved.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="hover:text-black transition-colors">이용약관</a>
-              <a href="#" className="hover:text-black transition-colors font-semibold">개인정보처리방침</a>
-              <a href="#" className="hover:text-black transition-colors">이메일무단수집거부</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
+    </>
   )
 }

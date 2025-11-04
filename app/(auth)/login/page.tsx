@@ -31,7 +31,6 @@ export default function LoginPage() {
         return
       }
 
-      // 로그인 성공
       router.push('/')
       router.refresh()
     } catch (error) {
@@ -42,68 +41,93 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            로그인
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            계정이 없으신가요?{' '}
-            <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500">
-              회원가입
-            </Link>
-          </p>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <p className="text-sm text-red-800">{error}</p>
-            </div>
-          )}
-          <div className="rounded-md shadow-sm space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                이메일
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="example@example.com"
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                비밀번호
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="••••••••"
-              />
-            </div>
-          </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* 헤더 이미지 배너 */}
+      <div
+        className="relative h-64 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80)'
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-600/70"></div>
+      </div>
 
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? '처리 중...' : '로그인'}
-            </button>
+      {/* 로그인 폼 */}
+      <div className="container-custom py-12 -mt-32 relative z-10">
+        <div className="max-w-lg mx-auto">
+          <div className="bg-white rounded-2xl shadow-xl p-8 sm:p-12">
+            {/* 헤더 */}
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold mb-2">
+                <span className="text-blue-600">MEMBER</span> LOGIN
+              </h1>
+            </div>
+
+            {/* 폼 */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {error && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <p className="text-sm text-red-800">{error}</p>
+                </div>
+              )}
+
+              <div>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="아이디"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
+                />
+              </div>
+
+              <div>
+                <input
+                  type="password"
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  placeholder="비밀번호"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
+                />
+              </div>
+
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="auto-login"
+                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <label htmlFor="auto-login" className="ml-2 text-sm text-gray-700">
+                  자동로그인
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all disabled:opacity-50"
+              >
+                {loading ? '처리 중...' : '로그인'}
+              </button>
+
+              <div className="flex justify-center gap-4 text-sm">
+                <Link href="/register" className="text-gray-600 hover:text-blue-600 transition-colors">
+                  회원가입
+                </Link>
+                <span className="text-gray-300">|</span>
+                <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
+                  아이디 찾기
+                </a>
+                <span className="text-gray-300">|</span>
+                <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
+                  비밀번호 찾기
+                </a>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   )

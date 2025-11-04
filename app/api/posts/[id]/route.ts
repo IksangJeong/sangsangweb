@@ -44,7 +44,7 @@ export async function GET(
   }
 }
 
-// 게시글 수정
+// 게시글 수정 (PUT)
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -101,6 +101,14 @@ export async function PUT(
       { status: 500 }
     )
   }
+}
+
+// 게시글 수정 (PATCH)
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  return PUT(request, { params })
 }
 
 // 게시글 삭제

@@ -1,11 +1,11 @@
-// Prisma schema for Career Center
+// Prisma schema for Career Center (Development with SQLite)
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -15,6 +15,7 @@ model User {
   email     String   @unique
   password  String
   name      String
+  role      String   @default("user") // user, admin
   createdAt DateTime @default(now())
 
   posts     Post[]
@@ -24,8 +25,8 @@ model User {
 // 게시판 모델
 model Post {
   id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(255)
-  content   String   @db.Text
+  title     String
+  content   String
   views     Int      @default(0)
   userId    Int
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -38,7 +39,7 @@ model Post {
 // 사진 갤러리 모델
 model Gallery {
   id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(255)
+  title     String
   filename  String
   filepath  String
   userId    Int
