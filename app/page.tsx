@@ -14,6 +14,7 @@ import 'swiper/css/navigation'
 export default function Home() {
   const [activeTab, setActiveTab] = useState(0)
   const [progress, setProgress] = useState(0)
+  const [noticeData, setNoticeData] = useState<any[]>([])
 
   // AOS 초기화
   useEffect(() => {
@@ -25,11 +26,20 @@ export default function Home() {
     })
   }, [])
 
-  const notices = [
-    { id: 1, title: '상상마루 진로체험센터를 오픈하였습니다', date: '2025-01-15' },
-    { id: 2, title: '2025년 상반기 프로그램 일정 안내', date: '2025-01-10' },
-    { id: 3, title: '진로캠프 참가 신청 안내', date: '2025-01-05' },
-  ]
+  // 공지사항 데이터 가져오기
+  useEffect(() => {
+    const fetchNotices = async () => {
+      try {
+        const response = await fetch('/api/posts?category=notice&limit=5')
+        const data = await response.json()
+        setNoticeData(data.posts || [])
+      } catch (error) {
+        console.error('Failed to fetch notices:', error)
+        setNoticeData([])
+      }
+    }
+    fetchNotices()
+  }, [])
 
   const programs = [
     { id: 1, title: '현장체험학습', description: '다양한 진로 현장 체험', image: '/images/program1.jpg' },
@@ -39,11 +49,17 @@ export default function Home() {
   ]
 
   const newsData = [
-    [
-      { id: 1, category: '공지사항', title: '상상마루 진로체험센터를 오픈하였습니다', description: '학생들의 꿈을 응원하는 진로진학체험지원센터', date: '25.01.15' },
-      { id: 2, category: '공지사항', title: '2025년 상반기 프로그램 일정 안내', description: '2025년 상반기 진로체험 프로그램 일정을 안내드립니다', date: '25.01.10' },
-      { id: 3, category: '공지사항', title: '진로캠프 참가 신청 안내', description: '진로캠프 참가 신청을 받고 있습니다', date: '25.01.05' },
-    ],
+    noticeData.map(post => ({
+      id: post.id,
+      category: '공지사항',
+      title: post.title,
+      description: post.content.substring(0, 50) + '...',
+      date: new Date(post.createdAt).toLocaleDateString('ko-KR', {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+      }).replace(/\. /g, '.').replace('.', '')
+    })),
     [
       { id: 1, category: '보도자료', title: '준비중입니다', description: '보도자료 준비중입니다', date: '25.01.15' },
     ],
@@ -359,7 +375,7 @@ export default function Home() {
                         className="sh_lt"
                         style={{ height: '30px' }}
                       >
-                        {notices.map((notice) => (
+                        {noticeData.map((notice) => (
                           <SwiperSlide key={notice.id}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                               <span className="sh_notice" style={{ flex: 1 }}>
@@ -375,7 +391,11 @@ export default function Home() {
                                 fontSize: '14px',
                                 color: '#94a3b8'
                               }}>
-                                {notice.date}
+                                {new Date(notice.createdAt).toLocaleDateString('ko-KR', {
+                                  year: '2-digit',
+                                  month: '2-digit',
+                                  day: '2-digit',
+                                }).replace(/\. /g, '-').replace('.', '')}
                               </span>
                             </div>
                           </SwiperSlide>

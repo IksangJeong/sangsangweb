@@ -9,10 +9,14 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
+    const category = searchParams.get('category') || 'free'
     const skip = (page - 1) * limit
+
+    const whereCondition = category ? { category } : {}
 
     const [posts, total] = await Promise.all([
       prisma.post.findMany({
+        where: whereCondition,
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
@@ -25,7 +29,7 @@ export async function GET(request: NextRequest) {
           },
         },
       }),
-      prisma.post.count(),
+      prisma.post.count({ where: whereCondition }),
     ])
 
     return NextResponse.json({
@@ -57,7 +61,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { title, content } = await request.json()
+    const { title, content, category } = await request.json()
 
     if (!title || !content) {
       return NextResponse.json(
@@ -66,10 +70,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // 공지사항은 관리자만 작성 가능
+    if (category === 'notice' && session.user.role !== 'admin') {
+      return NextResponse.json(
+        { error: '공지사항은 관리자만 작성할 수 있습니다' },
+        { status: 403 }
+      )
+    }
+
     const post = await prisma.post.create({
       data: {
         title,
         content,
+        category: category || 'free',
         userId: parseInt(session.user.id),
       },
       include: {
