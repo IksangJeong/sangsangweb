@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>로그인 - 상상 마루</title>
+    <link rel="stylesheet" href="../css/globals.css" />
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <div class="login-page">
+      <header class="nav-container">
+        <nav class="nav-inner-container">
+          <div class="nav-logo-box">
+            <a href="../index.html">상상 마루</a>
+          </div>
+          <ul class="navbar" role="menubar">
+            <li role="none"><a href="#" role="menuitem">단체소개</a></li>
+            <li role="none"><a href="#" role="menuitem">진로·직업체험</a></li>
+            <li role="none"><a href="#" role="menuitem">교육활동</a></li>
+            <li role="none"><a href="#" role="menuitem">체험활동</a></li>
+            <li role="none"><a href="community/notice.html" role="menuitem">커뮤니티</a></li>
+          </ul>
+          <div class="nav-button-box">
+            <a href="login.html" class="nav-button" aria-label="로그인">
+              <span class="text-wrapper-2">로그인</span>
+            </a>
+            <a href="signup.html" class="div-wrapper" aria-label="회원가입">
+              <span class="text-wrapper-3">회원가입</span>
+            </a>
+          </div>
+        </nav>
+      </header>
+
+      <main class="login-content">
+        <div class="login-form-container">
+          <div class="login-header">
+            <h1 class="login-title">상상마루 로그인</h1>
+            <p class="login-description">가입하실 때 사용한 이메일과 비밀번호를 입력해주세요.</p>
+          </div>
+
+          <form class="login-form" action="../php/auth/login.php" method="POST">
+            <div class="form-group">
+              <label for="email" class="sr-only">이메일</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-input"
+                placeholder="Email"
+                required
+                autocomplete="email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="password" class="sr-only">비밀번호</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-input"
+                placeholder="Password"
+                required
+                autocomplete="current-password"
+              />
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">다음</button>
+              <a href="signup.html" class="btn-secondary">회원 가입</a>
+              <div class="forgot-password">
+                <a href="#">비밀번호를 잊으셨나요?</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

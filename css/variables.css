@@ -1,0 +1,43 @@
+/* Font Import */
+@import url('https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css');
+
+:root {
+  /* Primary Colors */
+  --primary-blue: #1f63c9;
+  --primary-blue-hover: #1a54ab;
+  --primary-blue-dark: #1D4ED8;
+
+  /* Text Colors */
+  --text-black: #000000;
+  --text-dark: #0b0b0b;
+  --text-gray: #999999;
+  --text-light-gray: #716e6e;
+  --text-muted: #94a3b8;
+
+  /* Background Colors */
+  --bg-white: #ffffff;
+  --bg-light: #f8fafc;
+  --bg-light-alt: #f8fafcea;
+  --bg-footer: #F9FBFF;
+
+  /* Border Colors */
+  --border-light: rgba(249, 249, 249, 0.976471);
+  --border-gray: #e2e8f0;
+  --border-row: #F3F4F6;
+
+  /* Fonts */
+  --font-bold: "Spoqa Han Sans Neo", sans-serif;
+  --font-medium: "Spoqa Han Sans Neo", sans-serif;
+  --font-regular: "Spoqa Han Sans Neo", sans-serif;
+
+  /* Spacing */
+  --container-width: 1160px;
+  --nav-height: 75px;
+
+  /* Border Radius */
+  --radius-small: 8px;
+  --radius-medium: 15px;
+  --radius-large: 20px;
+  --radius-xl: 30px;
+  --radius-round: 50px;
+}
