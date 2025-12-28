@@ -7,21 +7,58 @@
     <link rel="stylesheet" href="../css/globals.css" />
     <link rel="stylesheet" href="../css/variables.css" />
     <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/dropdown.css" />
+    <link rel="stylesheet" href="../css/animations.css" />
     <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
   </head>
   <body>
     <div class="login-page">
       <header class="nav-container">
         <nav class="nav-inner-container">
           <div class="nav-logo-box">
-            <a href="../index.html">상상 마루</a>
+            <a href="../index.html"><h1 class="text-wrapper">상상 마루</h1></a>
           </div>
           <ul class="navbar" role="menubar">
-            <li role="none"><a href="#" role="menuitem">단체소개</a></li>
-            <li role="none"><a href="#" role="menuitem">진로·직업체험</a></li>
-            <li role="none"><a href="#" role="menuitem">교육활동</a></li>
-            <li role="none"><a href="#" role="menuitem">체험활동</a></li>
-            <li role="none"><a href="community/notice.html" role="menuitem">커뮤니티</a></li>
+            <li class="div nav-item" role="menuitem">
+              <a href="about/greeting.html">단체소개</a>
+              <ul class="dropdown-menu">
+                <li><a href="about/greeting.html">인사말</a></li>
+                <li><a href="about/history.html">연혁</a></li>
+                <li><a href="about/location.html">오시는 길</a></li>
+              </ul>
+            </li>
+            <li class="div nav-item no-dropdown" role="menuitem">
+              <a href="#">진로·직업체험</a>
+            </li>
+            <li class="div nav-item" role="menuitem">
+              <a href="education/afterschool.html">교육활동</a>
+              <ul class="dropdown-menu">
+                <li><a href="education/afterschool.html">방과후/늘봄 교육</a></li>
+                <li><a href="education/outside.html">학교밖 늘봄교육</a></li>
+                <li><a href="education/freeyear.html">자유학년(기)제</a></li>
+                <li><a href="education/drone.html">탑마루드론축구단</a></li>
+                <li><a href="education/hrd.html">HRD-Net강사양성과정</a></li>
+                <li><a href="education/volunteer.html">교육기부 진로체험</a></li>
+              </ul>
+            </li>
+            <li class="div nav-item" role="menuitem">
+              <a href="experience/creative.html">체험활동</a>
+              <ul class="dropdown-menu">
+                <li><a href="experience/creative.html">창의적체험활동</a></li>
+                <li><a href="experience/swai.html">SW.AI교육주간</a></li>
+                <li><a href="experience/science.html">과학의날 행사 지원</a></li>
+                <li><a href="experience/culture.html">문화예술체험 교육</a></li>
+              </ul>
+            </li>
+            <li class="div nav-item" role="menuitem">
+              <a href="community/notice.html">커뮤니티</a>
+              <ul class="dropdown-menu">
+                <li><a href="community/notice.html">공지사항</a></li>
+                <li><a href="community/press.html">보도자료</a></li>
+                <li><a href="community/gallery.html">포토갤러리</a></li>
+              </ul>
+            </li>
           </ul>
           <div class="nav-button-box">
             <a href="login.html" class="nav-button" aria-label="로그인">

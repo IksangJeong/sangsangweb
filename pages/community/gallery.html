@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>공지사항 - 상상 마루</title>
+    <title>포토갤러리 - 상상 마루</title>
     <link rel="stylesheet" href="../../css/globals.css" />
     <link rel="stylesheet" href="../../css/variables.css" />
     <link rel="stylesheet" href="../../css/common.css" />
@@ -54,9 +54,9 @@
             <li class="div nav-item" role="menuitem">
               <a href="notice.html">커뮤니티</a>
               <ul class="dropdown-menu">
-                <li><a href="notice.html" class="active">공지사항</a></li>
+                <li><a href="notice.html">공지사항</a></li>
                 <li><a href="press.html">보도자료</a></li>
-                <li><a href="gallery.html">포토갤러리</a></li>
+                <li><a href="gallery.html" class="active">포토갤러리</a></li>
               </ul>
             </li>
           </ul>
@@ -78,7 +78,7 @@
               <h1 class="sidebar-title">커뮤니티</h1>
             </div>
             <nav class="sidebar-menu" aria-label="커뮤니티 하위 메뉴">
-              <a href="notice.html" class="menu-item active" aria-current="page">
+              <a href="notice.html" class="menu-item">
                 <span>공지사항</span>
                 <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M9 18l6-6-6-6"/>
@@ -90,7 +90,7 @@
                   <path d="M9 18l6-6-6-6"/>
                 </svg>
               </a>
-              <a href="gallery.html" class="menu-item">
+              <a href="gallery.html" class="menu-item active" aria-current="page">
                 <span>포토갤러리</span>
                 <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M9 18l6-6-6-6"/>
@@ -99,59 +99,71 @@
             </nav>
           </aside>
 
-          <section class="community-main" aria-labelledby="notice-title">
+          <section class="community-main" aria-labelledby="gallery-title">
             <div class="section-header">
-              <h2 class="section-title" id="notice-title">공지사항</h2>
+              <h2 class="section-title" id="gallery-title">포토갤러리</h2>
               <div class="section-underline" aria-hidden="true"></div>
             </div>
 
-            <div class="notice-table">
-              <div class="table-header" role="row">
-                <div class="col-num" role="columnheader">번호</div>
-                <div class="col-title" role="columnheader">제목</div>
-                <div class="col-author" role="columnheader">작성자</div>
-                <div class="col-date" role="columnheader">작성일</div>
-                <div class="col-views" role="columnheader">조회</div>
-              </div>
-
-              <article class="table-row" role="row">
-                <div class="col-num" role="cell">5</div>
-                <div class="col-title" role="cell"><a href="#">2025년 상반기 진로체험 프로그램 안내</a></div>
-                <div class="col-author" role="cell">관리자</div>
-                <div class="col-date" role="cell"><time datetime="2025-12-15">2025.12.15</time></div>
-                <div class="col-views" role="cell">1234</div>
+            <div class="gallery-grid">
+              <article class="gallery-card">
+                <div class="gallery-thumbnail">
+                  <span>사진</span>
+                </div>
+                <div class="gallery-info">
+                  <h3 class="gallery-title-text">창의적 사고력 향상 워크숍</h3>
+                  <time datetime="2025-12-18" class="gallery-date">2025.12.18</time>
+                </div>
               </article>
 
-              <article class="table-row" role="row">
-                <div class="col-num" role="cell">4</div>
-                <div class="col-title" role="cell"><a href="#">겨울방학 특별 교육활동 참가자 모집</a></div>
-                <div class="col-author" role="cell">관리자</div>
-                <div class="col-date" role="cell"><time datetime="2025-12-10">2025.12.10</time></div>
-                <div class="col-views" role="cell">987</div>
+              <article class="gallery-card">
+                <div class="gallery-thumbnail">
+                  <span>사진</span>
+                </div>
+                <div class="gallery-info">
+                  <h3 class="gallery-title-text">진로 탐색 프로그램</h3>
+                  <time datetime="2025-12-15" class="gallery-date">2025.12.15</time>
+                </div>
               </article>
 
-              <article class="table-row" role="row">
-                <div class="col-num" role="cell">3</div>
-                <div class="col-title" role="cell"><a href="#">상상마루 체험활동 안전 수칙 안내</a></div>
-                <div class="col-author" role="cell">관리자</div>
-                <div class="col-date" role="cell"><time datetime="2025-12-05">2025.12.05</time></div>
-                <div class="col-views" role="cell">756</div>
+              <article class="gallery-card">
+                <div class="gallery-thumbnail">
+                  <span>사진</span>
+                </div>
+                <div class="gallery-info">
+                  <h3 class="gallery-title-text">팀워크 프로젝트 활동</h3>
+                  <time datetime="2025-12-12" class="gallery-date">2025.12.12</time>
+                </div>
               </article>
 
-              <article class="table-row" role="row">
-                <div class="col-num" role="cell">2</div>
-                <div class="col-title" role="cell"><a href="#">12월 정기 워크숍 일정 공지</a></div>
-                <div class="col-author" role="cell">관리자</div>
-                <div class="col-date" role="cell"><time datetime="2025-12-01">2025.12.01</time></div>
-                <div class="col-views" role="cell">543</div>
+              <article class="gallery-card">
+                <div class="gallery-thumbnail">
+                  <span>사진</span>
+                </div>
+                <div class="gallery-info">
+                  <h3 class="gallery-title-text">SW.AI 교육주간 행사</h3>
+                  <time datetime="2025-12-10" class="gallery-date">2025.12.10</time>
+                </div>
               </article>
 
-              <article class="table-row" role="row">
-                <div class="col-num" role="cell">1</div>
-                <div class="col-title" role="cell"><a href="#">상상마루 홈페이지가 새롭게 오픈했습니다</a></div>
-                <div class="col-author" role="cell">관리자</div>
-                <div class="col-date" role="cell"><time datetime="2025-11-25">2025.11.25</time></div>
-                <div class="col-views" role="cell">2156</div>
+              <article class="gallery-card">
+                <div class="gallery-thumbnail">
+                  <span>사진</span>
+                </div>
+                <div class="gallery-info">
+                  <h3 class="gallery-title-text">과학의날 체험부스 운영</h3>
+                  <time datetime="2025-12-05" class="gallery-date">2025.12.05</time>
+                </div>
+              </article>
+
+              <article class="gallery-card">
+                <div class="gallery-thumbnail">
+                  <span>사진</span>
+                </div>
+                <div class="gallery-info">
+                  <h3 class="gallery-title-text">문화예술 체험활동</h3>
+                  <time datetime="2025-12-01" class="gallery-date">2025.12.01</time>
+                </div>
               </article>
             </div>
           </section>

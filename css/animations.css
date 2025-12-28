@@ -1,0 +1,303 @@
+/* ============================================
+   animations.css - 인터랙티브 애니메이션 효과
+   ============================================ */
+
+/* ----------------------------------------
+   드롭다운 메뉴 애니메이션
+   ---------------------------------------- */
+.dropdown-menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.nav-item:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  display: block;
+}
+
+/* ----------------------------------------
+   네비게이션 언더라인 애니메이션
+   ---------------------------------------- */
+.nav-item > a {
+  position: relative;
+}
+
+.nav-item > a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--primary-blue, #1F63C9);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-item:hover > a::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ----------------------------------------
+   버튼 호버 효과
+   ---------------------------------------- */
+.btn-primary,
+.div-wrapper,
+button[type="submit"] {
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover,
+.div-wrapper:hover,
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-primary, 0 4px 12px rgba(31, 99, 201, 0.3));
+}
+
+.btn-primary:active,
+.div-wrapper:active,
+button[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* 세컨더리 버튼 */
+.btn-secondary,
+.nav-button {
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover,
+.nav-button:hover {
+  transform: translateY(-1px);
+}
+
+/* ----------------------------------------
+   카드 호버 효과
+   ---------------------------------------- */
+.gallery-card,
+.program-card,
+.activity-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-card:hover,
+.program-card:hover,
+.activity-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg, 0 12px 24px rgba(0, 0, 0, 0.12));
+}
+
+/* 갤러리 썸네일 오버레이 효과 */
+.gallery-thumbnail {
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-thumbnail::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(31, 99, 201, 0);
+  transition: background 0.3s ease;
+}
+
+.gallery-card:hover .gallery-thumbnail::after {
+  background: rgba(31, 99, 201, 0.1);
+}
+
+/* ----------------------------------------
+   테이블 행 호버 효과
+   ---------------------------------------- */
+.table-row {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.table-row:hover {
+  background-color: var(--bg-light, #F8FAFC);
+  transform: translateX(4px);
+}
+
+/* ----------------------------------------
+   입력 필드 포커스 효과
+   ---------------------------------------- */
+.form-input,
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: var(--primary-blue, #1F63C9);
+  box-shadow: 0 0 0 3px rgba(31, 99, 201, 0.15);
+  outline: none;
+}
+
+/* ----------------------------------------
+   사이드바 메뉴 아이템 효과
+   ---------------------------------------- */
+.menu-item {
+  transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+  padding-left: 15px;
+}
+
+.menu-item .chevron-icon {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.menu-item:hover .chevron-icon {
+  transform: translateX(4px);
+}
+
+/* ----------------------------------------
+   링크 호버 효과
+   ---------------------------------------- */
+.col-title a,
+.text-wrapper-15,
+.p {
+  transition: color 0.2s ease;
+}
+
+/* ----------------------------------------
+   퀵메뉴 아이콘 호버 효과
+   ---------------------------------------- */
+.frame-6,
+.frame-7 {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.frame-6:hover,
+.frame-7:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+/* ----------------------------------------
+   스크롤 페이드인 애니메이션 (JS 연동용)
+   ---------------------------------------- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 지연 시간 변형 */
+.fade-in-delay-1 { transition-delay: 0.1s; }
+.fade-in-delay-2 { transition-delay: 0.2s; }
+.fade-in-delay-3 { transition-delay: 0.3s; }
+.fade-in-delay-4 { transition-delay: 0.4s; }
+
+/* ----------------------------------------
+   로고 호버 효과
+   ---------------------------------------- */
+.nav-logo-box a,
+.text-wrapper {
+  transition: opacity 0.2s ease;
+}
+
+.nav-logo-box:hover a,
+.nav-logo-box:hover .text-wrapper {
+  opacity: 0.8;
+}
+
+/* ----------------------------------------
+   푸터 지도 호버 효과
+   ---------------------------------------- */
+.map-placeholder {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.map-placeholder:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+/* ----------------------------------------
+   스피너/로딩 애니메이션 (필요시 사용)
+   ---------------------------------------- */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* ----------------------------------------
+   펄스 애니메이션 (알림 등에 사용)
+   ---------------------------------------- */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ----------------------------------------
+   슬라이드 인 애니메이션
+   ---------------------------------------- */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-up {
+  animation: slideInUp 0.5s ease forwards;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.5s ease forwards;
+}
+
+/* ----------------------------------------
+   Reduced Motion 지원 (접근성)
+   ---------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

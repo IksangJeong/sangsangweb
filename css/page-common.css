@@ -1,9 +1,11 @@
-/* Community Page Styles */
+/* Common Page Layout Styles */
+/* Used for all sub-pages with sidebar + main content structure */
 
-.community-page {
+/* Page Container */
+.page-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   padding: 0px;
   position: relative;
   width: 100%;
@@ -13,7 +15,8 @@
   min-height: 100vh;
 }
 
-.community-content {
+/* Page Content Area */
+.page-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +28,8 @@
   box-sizing: border-box;
 }
 
-.community-container {
+/* Content Container (Sidebar + Main) */
+.content-container {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -36,7 +40,7 @@
 }
 
 /* Sidebar Styles */
-.community-sidebar {
+.page-sidebar {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -117,7 +121,7 @@
 }
 
 /* Main Content Styles */
-.community-main {
+.page-main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -154,118 +158,120 @@
   background-color: #1D4ED8;
 }
 
-/* Table Styles */
-.notice-table {
+/* Content Body */
+.content-body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
+  padding: 20px 0;
+  gap: 20px;
   width: 100%;
 }
 
-.table-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 15px 10px;
-  width: 100%;
-  background-color: #F8FAFC;
-  border-top: 2px solid #E2E8F0;
-  border-bottom: 1px solid #E2E8F0;
+.content-body p {
   font-family: 'Spoqa Han Sans Neo', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 18px;
-  color: #000000;
-  box-sizing: border-box;
-}
-
-.table-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 15px 10px;
-  width: 100%;
-  border-bottom: 1px solid #F3F4F6;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
-  font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #333333;
+  margin: 0;
+}
+
+.content-body h3 {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
   color: #000000;
-  transition: background-color 0.2s ease;
-  box-sizing: border-box;
+  margin: 20px 0 10px 0;
 }
 
-.table-row:hover {
-  background-color: #F8FAFC;
+.content-body h3:first-child {
+  margin-top: 0;
 }
 
-/* Column Widths */
-.col-num {
-  width: 60px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.col-title {
-  flex: 1;
-  min-width: 200px;
-}
-
-.col-title a {
-  color: #101828;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.col-title a:hover {
-  color: #1F63C9;
-}
-
-.col-author {
-  width: 100px;
-  text-align: center;
-  flex-shrink: 0;
-  color: #6A7282;
-}
-
-.col-date {
-  width: 100px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.col-views {
-  width: 60px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-/* Gallery Grid Styles */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  width: 100%;
-}
-
-.gallery-card {
+/* Info Box */
+.info-box {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.gallery-card:hover {
-  transform: translateY(-4px);
-}
-
-.gallery-thumbnail {
+  padding: 24px;
+  background: #F8FAFC;
+  border-radius: 12px;
   width: 100%;
-  aspect-ratio: 4/3;
+  box-sizing: border-box;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.info-label {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #666666;
+  min-width: 80px;
+}
+
+.info-value {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #333333;
+}
+
+/* Timeline (for History page) */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  padding-left: 20px;
+  border-left: 2px solid #E2E8F0;
+}
+
+.timeline-item {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px 0;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -26px;
+  top: 24px;
+  width: 10px;
+  height: 10px;
+  background: #1F63C9;
+  border-radius: 50%;
+}
+
+.timeline-year {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #1F63C9;
+  min-width: 60px;
+}
+
+.timeline-content {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333333;
+}
+
+/* Map Container (for Location page) */
+.map-container {
+  width: 100%;
+  height: 400px;
   background: #EAEAEA;
   border-radius: 12px;
   display: flex;
@@ -273,40 +279,10 @@
   justify-content: center;
   color: #94A3B8;
   font-family: 'Spoqa Han Sans Neo', sans-serif;
-  font-size: 14px;
-  overflow: hidden;
+  font-size: 16px;
 }
 
-.gallery-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.gallery-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 0 4px;
-}
-
-.gallery-title-text {
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 20px;
-  color: #000000;
-  margin: 0;
-}
-
-.gallery-date {
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
-  font-weight: 400;
-  font-size: 13px;
-  color: #94A3B8;
-}
-
-/* Footer Styles for Community Pages - index.html과 동일하게 수정 */
+/* Footer Styles - index.html과 동일하게 */
 .footer-container {
   display: flex;
   flex-direction: row;
@@ -409,11 +385,11 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .community-container {
+  .content-container {
     flex-direction: column;
   }
 
-  .community-sidebar {
+  .page-sidebar {
     width: 100%;
   }
 
@@ -434,21 +410,18 @@
     display: none;
   }
 
-  .col-author,
-  .col-views {
-    display: none;
-  }
-
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
   .footer-inner {
     flex-direction: column;
+    height: auto;
   }
 
   .footer-map {
     width: 100%;
+    justify-content: center;
+  }
+
+  .map-placeholder {
+    width: 100%;
+    max-width: 500px;
   }
 }

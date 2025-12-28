@@ -6,7 +6,10 @@
     <title>상상 마루 - 진로·직업체험 교육 플랫폼</title>
     <link rel="stylesheet" href="css/globals.css" />
     <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/dropdown.css" />
+    <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
   </head>
   <body>
     <div class="index-page-desktop">
@@ -16,11 +19,45 @@
             <h1 class="text-wrapper">상상 마루</h1>
           </div>
           <ul class="navbar" role="menubar">
-            <li class="div" role="menuitem"><a href="#">단체소개</a></li>
-            <li class="div" role="menuitem"><a href="#">진로·직업체험</a></li>
-            <li class="div" role="menuitem"><a href="#">교육활동</a></li>
-            <li class="div" role="menuitem"><a href="#">체험활동</a></li>
-            <li class="div" role="menuitem"><a href="pages/community/notice.html">커뮤니티</a></li>
+            <li class="div nav-item" role="menuitem">
+              <a href="pages/about/greeting.html">단체소개</a>
+              <ul class="dropdown-menu">
+                <li><a href="pages/about/greeting.html">인사말</a></li>
+                <li><a href="pages/about/history.html">연혁</a></li>
+                <li><a href="pages/about/location.html">오시는 길</a></li>
+              </ul>
+            </li>
+            <li class="div nav-item no-dropdown" role="menuitem">
+              <a href="#">진로·직업체험</a>
+            </li>
+            <li class="div nav-item" role="menuitem">
+              <a href="pages/education/afterschool.html">교육활동</a>
+              <ul class="dropdown-menu">
+                <li><a href="pages/education/afterschool.html">방과후/늘봄 교육</a></li>
+                <li><a href="pages/education/outside.html">학교밖 늘봄교육</a></li>
+                <li><a href="pages/education/freeyear.html">자유학년(기)제</a></li>
+                <li><a href="pages/education/drone.html">탑마루드론축구단</a></li>
+                <li><a href="pages/education/hrd.html">HRD-Net강사양성과정</a></li>
+                <li><a href="pages/education/volunteer.html">교육기부 진로체험</a></li>
+              </ul>
+            </li>
+            <li class="div nav-item" role="menuitem">
+              <a href="pages/experience/creative.html">체험활동</a>
+              <ul class="dropdown-menu">
+                <li><a href="pages/experience/creative.html">창의적체험활동</a></li>
+                <li><a href="pages/experience/swai.html">SW.AI교육주간</a></li>
+                <li><a href="pages/experience/science.html">과학의날 행사 지원</a></li>
+                <li><a href="pages/experience/culture.html">문화예술체험 교육</a></li>
+              </ul>
+            </li>
+            <li class="div nav-item" role="menuitem">
+              <a href="pages/community/notice.html">커뮤니티</a>
+              <ul class="dropdown-menu">
+                <li><a href="pages/community/notice.html">공지사항</a></li>
+                <li><a href="pages/community/press.html">보도자료</a></li>
+                <li><a href="pages/community/gallery.html">포토갤러리</a></li>
+              </ul>
+            </li>
           </ul>
           <div class="nav-button-box">
             <a href="pages/login.html" class="nav-button" aria-label="로그인">
@@ -171,28 +208,28 @@
           </div>
         </section>
         <section class="view" aria-label="협력 기관">
-          <img class="SCR-rtrv" src="img/SCR-20251219-rtrv-1.png" alt="협력 기관 로고 1" />
+          <img class="SCR-rtrv" src="img/SCR-20251219-rtrv 1.png" alt="협력 기관 로고 1" />
           <img
             class="element"
-            src="img/1748840930-hwawop490-obireoh5hpujdlwhpak4midtbonpuro683d31e2.png"
+            src="img/1748840930_HwAwOP490_OBirEoH5HPuJdlwhpAk4MiDtbOnpurO683d31e2.png"
             alt="협력 기관 로고 2"
           />
           <img
             class="img"
-            src="img/1748840936-do7imvlriul-axxmvcml-azu9slehdtaz3c04qjmt683d31e8.png"
+            src="img/1748840936_do7imVlrIUL-aXxmVcmL-aZu9SLEHdTaz3c04QJMT683d31e8.png"
             alt="협력 기관 로고 3"
           />
           <img
             class="element-2"
-            src="img/1750122236-bmt5bi6qbgwlotxmsyanmwv9vj8ekzibvxrsha37h6850befc.png"
+            src="img/1750122236_bMt5bI6qbgWlOtxmsYaNmWv9vj8EkZIbVxrsHA37h6850befc.png"
             alt="협력 기관 로고 4"
           />
           <img
             class="element-3"
-            src="img/1756364154-5w3vmwiw3be-h16ydi-gle850dcz8h-a7-v8aenw68affd7a.png"
+            src="img/1756364154__5W3vmWIw3bE_H16YDi_Gle850DCZ8h-A7_v8AenW68affd7a.png"
             alt="협력 기관 로고 5"
           />
-          <img class="fileimageview" src="img/fileimageview-1.png" alt="협력 기관 로고 6" />
+          <img class="fileimageview" src="img/fileImageView 1.png" alt="협력 기관 로고 6" />
         </section>
       </main>
       <footer class="frame-23">

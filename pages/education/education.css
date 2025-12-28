@@ -1,0 +1,158 @@
+/* Education Pages Specific Styles */
+/* Extends page-common.css for education section specific needs */
+
+/* Program Card */
+.program-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
+}
+
+.program-title {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #000000;
+  margin: 0;
+}
+
+.program-desc {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #333333;
+  margin: 0;
+}
+
+/* Feature List */
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.6;
+}
+
+.feature-item::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #1F63C9;
+  border-radius: 50%;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+/* Schedule Table */
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 12px 16px;
+  text-align: left;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 14px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.schedule-table th {
+  background: #F8FAFC;
+  font-weight: 500;
+  color: #666666;
+}
+
+.schedule-table td {
+  color: #333333;
+}
+
+.schedule-table tbody tr:hover {
+  background: #F8FAFC;
+}
+
+/* Target Audience */
+.target-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.target-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  background: #EFF6FF;
+  color: #1F63C9;
+  border-radius: 20px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Image Gallery for Programs */
+.program-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.program-gallery-item {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #EAEAEA;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94A3B8;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .program-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Contact Button */
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #1F63C9;
+  color: #FFFFFF;
+  border-radius: 8px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  margin-top: 20px;
+}
+
+.contact-btn:hover {
+  background: #1a54ab;
+}

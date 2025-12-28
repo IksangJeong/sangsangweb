@@ -1,0 +1,142 @@
+/* About Pages Specific Styles */
+/* Extends page-common.css for about section specific needs */
+
+/* Greeting Page - CEO Message */
+.ceo-message {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.ceo-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #F8FAFC;
+}
+
+.ceo-name {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #000000;
+  margin: 10px 0 0 0;
+}
+
+.ceo-title {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #666666;
+  margin: 0;
+}
+
+/* History Page - Timeline Enhancements */
+.history-section {
+  margin-bottom: 30px;
+}
+
+.history-year-group {
+  margin-bottom: 40px;
+}
+
+.history-year-title {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #1F63C9;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #E2E8F0;
+}
+
+/* Location Page - Map and Contact Info */
+.location-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.contact-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: #1F63C9;
+}
+
+.contact-label {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #666666;
+  min-width: 60px;
+}
+
+.contact-value {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #333333;
+}
+
+/* Transportation Info */
+.transport-section {
+  margin-top: 30px;
+}
+
+.transport-title {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+.transport-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.transport-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.transport-type {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #1F63C9;
+  min-width: 50px;
+}
+
+.transport-desc {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.6;
+}

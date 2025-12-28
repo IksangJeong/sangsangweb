@@ -90,8 +90,13 @@
   flex-grow: 0;
 }
 
-.navbar a:hover {
-  color: #1F63C9;
+.navbar > .nav-item > a:hover {
+  color: #000000;
+}
+
+/* 서브페이지 드롭다운 위치 조정 */
+.page-container .dropdown-menu {
+  top: calc(100% - 20px);
 }
 
 .nav-button-box {

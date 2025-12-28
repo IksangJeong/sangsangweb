@@ -34,10 +34,33 @@
   --container-width: 1160px;
   --nav-height: 75px;
 
+  /* Breakpoints (참조용 - CSS에서 변수로 사용 불가) */
+  /* --breakpoint-xl: 1440px; */
+  /* --breakpoint-lg: 1200px; */
+  /* --breakpoint-md: 1024px; */
+  /* --breakpoint-sm: 768px; */
+
+  /* Container Padding */
+  --container-padding-xl: 20px;
+  --container-padding-lg: 40px;
+  --container-padding-md: 30px;
+  --container-padding-sm: 20px;
+
   /* Border Radius */
   --radius-small: 8px;
   --radius-medium: 15px;
   --radius-large: 20px;
   --radius-xl: 30px;
   --radius-round: 50px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-primary: 0 4px 12px rgba(31, 99, 201, 0.3);
 }
