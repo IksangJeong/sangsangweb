@@ -1,0 +1,332 @@
+/* Store Page - 교육 도구 스토어 */
+
+/* 스토어 페이지 컨테이너 */
+.store-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: #FFFFFF;
+}
+
+/* 타이틀 섹션 */
+.store-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0 20px;
+  width: 100%;
+}
+
+.store-header-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 6px 4px;
+  gap: 20px;
+  width: 1160px;
+}
+
+.store-title {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: -0.15px;
+  color: #000000;
+  margin: 0;
+}
+
+/* 카테고리 섹션 */
+.category-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0 40px;
+  width: 100%;
+}
+
+.category-grid {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0;
+  gap: 10px;
+  width: 1160px;
+}
+
+.category-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 228px;
+  height: 129px;
+  background: #EAEAEA;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  flex: none;
+  flex-grow: 1;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* 카테고리 그리드 호버 시 - 다른 버튼들 좁아짐 */
+.category-grid:hover .category-btn {
+  width: 211px;
+}
+
+/* 호버된 버튼 - 확장 */
+.category-grid .category-btn:hover {
+  width: 300px;
+  flex-grow: 0;
+  align-items: flex-start;
+  padding-left: 22px;
+  background: #DEDEDE;
+}
+
+.category-btn-title {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: -0.15px;
+  color: #101828;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+/* 호버 시 타이틀 좌측 정렬 */
+.category-btn:hover .category-btn-title {
+  text-align: left;
+}
+
+.category-btn-desc {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 21px;
+  text-align: left;
+  letter-spacing: -0.15px;
+  color: #101828;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* 호버 시 설명 텍스트 표시 */
+.category-btn:hover .category-btn-desc {
+  opacity: 1;
+  max-height: 30px;
+}
+
+.category-icon {
+  width: 50px;
+  height: 50px;
+  margin-top: 8px;
+  transition: all 0.3s ease;
+}
+
+/* 호버 시 아이콘 확대 및 우측 배치 */
+.category-btn:hover .category-icon {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 70px;
+  height: 70px;
+  margin-top: 0;
+}
+
+/* 상품 섹션 */
+.products-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  gap: 20px;
+  width: 100%;
+}
+
+.products-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0;
+  gap: 4px;
+  width: 1160px;
+}
+
+/* 상품 카드 */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  gap: 14px;
+  width: 370px;
+  height: 466px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-image {
+  width: 370px;
+  height: 360px;
+  background: #EAEAEA;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px;
+  gap: 4px;
+  width: 370px;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  gap: 4px;
+  width: 100%;
+}
+
+.product-title {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 21px;
+  letter-spacing: -0.15px;
+  color: #0A0A0A;
+  margin: 0;
+}
+
+.product-description {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+  letter-spacing: -0.15px;
+  color: #4A5565;
+  margin: 0;
+}
+
+.product-price-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px;
+  gap: 4px;
+}
+
+.product-price {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.43px;
+  color: #0A0A0A;
+  margin: 0;
+}
+
+/* 반응형 */
+@media (max-width: 1200px) {
+  .store-header-inner,
+  .category-grid,
+  .products-grid {
+    width: 100%;
+    max-width: 1160px;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 1024px) {
+  .category-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .category-btn {
+    width: calc(33.333% - 10px);
+    min-width: 180px;
+  }
+
+  .category-btn.featured {
+    width: calc(50% - 10px);
+    min-width: 280px;
+  }
+
+  .products-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .product-card {
+    width: calc(50% - 20px);
+    max-width: 370px;
+  }
+
+  .product-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 370 / 360;
+  }
+
+  .product-info {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .store-title {
+    font-size: 28px;
+  }
+
+  .category-btn {
+    width: calc(50% - 10px);
+  }
+
+  .category-btn.featured {
+    width: 100%;
+  }
+
+  .product-card {
+    width: 100%;
+    max-width: 370px;
+  }
+}

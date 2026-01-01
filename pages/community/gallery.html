@@ -11,13 +11,14 @@
     <link rel="stylesheet" href="../../css/animations.css" />
     <link rel="stylesheet" href="community.css" />
     <link rel="stylesheet" href="../../css/responsive.css" />
+    <script src="../../js/api.js" defer></script>
   </head>
   <body>
     <div class="community-page">
       <header class="nav-container">
         <nav class="nav-inner-container">
           <div class="nav-logo-box">
-            <a href="../../index.html"><h1 class="text-wrapper">상상 마루</h1></a>
+            <a href="../../index.html"><img src="../../img/logo.png" alt="상상 마루" class="nav-logo" /></a>
           </div>
           <ul class="navbar" role="menubar">
             <li class="div nav-item" role="menuitem">
@@ -58,6 +59,9 @@
                 <li><a href="press.html">보도자료</a></li>
                 <li><a href="gallery.html" class="active">포토갤러리</a></li>
               </ul>
+            </li>
+            <li class="div nav-item no-dropdown" role="menuitem">
+              <a href="../store/store.html">스토어</a>
             </li>
           </ul>
           <div class="nav-button-box">
@@ -103,69 +107,20 @@
             <div class="section-header">
               <h2 class="section-title" id="gallery-title">포토갤러리</h2>
               <div class="section-underline" aria-hidden="true"></div>
+              <!-- 회원 글 작성 버튼 (로그인한 사용자 모두 가능) -->
+              <a href="../admin/write.html?type=gallery" id="write-btn" class="write-btn" style="display: none;">
+                <span>글 작성</span>
+              </a>
             </div>
 
-            <div class="gallery-grid">
-              <article class="gallery-card">
-                <div class="gallery-thumbnail">
-                  <span>사진</span>
-                </div>
-                <div class="gallery-info">
-                  <h3 class="gallery-title-text">창의적 사고력 향상 워크숍</h3>
-                  <time datetime="2025-12-18" class="gallery-date">2025.12.18</time>
-                </div>
-              </article>
-
-              <article class="gallery-card">
-                <div class="gallery-thumbnail">
-                  <span>사진</span>
-                </div>
-                <div class="gallery-info">
-                  <h3 class="gallery-title-text">진로 탐색 프로그램</h3>
-                  <time datetime="2025-12-15" class="gallery-date">2025.12.15</time>
-                </div>
-              </article>
-
-              <article class="gallery-card">
-                <div class="gallery-thumbnail">
-                  <span>사진</span>
-                </div>
-                <div class="gallery-info">
-                  <h3 class="gallery-title-text">팀워크 프로젝트 활동</h3>
-                  <time datetime="2025-12-12" class="gallery-date">2025.12.12</time>
-                </div>
-              </article>
-
-              <article class="gallery-card">
-                <div class="gallery-thumbnail">
-                  <span>사진</span>
-                </div>
-                <div class="gallery-info">
-                  <h3 class="gallery-title-text">SW.AI 교육주간 행사</h3>
-                  <time datetime="2025-12-10" class="gallery-date">2025.12.10</time>
-                </div>
-              </article>
-
-              <article class="gallery-card">
-                <div class="gallery-thumbnail">
-                  <span>사진</span>
-                </div>
-                <div class="gallery-info">
-                  <h3 class="gallery-title-text">과학의날 체험부스 운영</h3>
-                  <time datetime="2025-12-05" class="gallery-date">2025.12.05</time>
-                </div>
-              </article>
-
-              <article class="gallery-card">
-                <div class="gallery-thumbnail">
-                  <span>사진</span>
-                </div>
-                <div class="gallery-info">
-                  <h3 class="gallery-title-text">문화예술 체험활동</h3>
-                  <time datetime="2025-12-01" class="gallery-date">2025.12.01</time>
-                </div>
-              </article>
+            <div id="gallery-list" class="gallery-grid">
+              <!-- API에서 갤러리 데이터를 로드합니다 -->
+              <div class="loading-message">갤러리를 불러오는 중...</div>
             </div>
+
+            <nav id="pagination" class="pagination" aria-label="페이지 네비게이션">
+              <!-- 페이지네이션 동적 생성 -->
+            </nav>
           </section>
         </div>
       </main>
@@ -180,11 +135,124 @@
               <p>Iksan@gmail.com</p>
             </address>
           </div>
-          <div class="footer-map">
-            <div class="map-placeholder">지도</div>
-          </div>
         </div>
       </footer>
     </div>
+
+    <script>
+      const ITEMS_PER_PAGE = 12;
+      let currentPage = 1;
+
+      document.addEventListener('DOMContentLoaded', async function() {
+        // 네비게이션 업데이트
+        if (typeof UIHelper !== 'undefined') {
+          await UIHelper.updateNavigation();
+
+          // 로그인한 사용자는 모두 글 작성 가능 (포토갤러리)
+          if (window.currentUser) {
+            const writeBtn = document.getElementById('write-btn');
+            writeBtn.href = '../admin/gallery-upload.html';
+            writeBtn.querySelector('span').textContent = '사진 올리기';
+            writeBtn.style.display = 'inline-flex';
+          }
+        }
+
+        // 갤러리 목록 로드
+        await loadGallery(1);
+      });
+
+      // 갤러리 목록 로드
+      async function loadGallery(page) {
+        currentPage = page;
+        const container = document.getElementById('gallery-list');
+        const paginationContainer = document.getElementById('pagination');
+
+        try {
+          container.innerHTML = '<div class="loading-message">갤러리를 불러오는 중...</div>';
+
+          const response = await GalleryAPI.list(page, ITEMS_PER_PAGE);
+
+          if (response.success) {
+            renderGalleryList(response.data);
+            if (response.pagination) {
+              renderPagination(response.pagination);
+            }
+          } else {
+            container.innerHTML = '<div class="no-posts">갤러리 데이터를 불러올 수 없습니다.</div>';
+          }
+        } catch (error) {
+          console.error('갤러리 로드 오류:', error);
+          container.innerHTML = '<div class="no-posts">갤러리를 불러오는 중 오류가 발생했습니다.</div>';
+        }
+      }
+
+      // 갤러리 목록 렌더링
+      function renderGalleryList(items) {
+        const container = document.getElementById('gallery-list');
+
+        if (!items || items.length === 0) {
+          container.innerHTML = '<div class="no-posts">등록된 사진이 없습니다.</div>';
+          return;
+        }
+
+        container.innerHTML = items.map(item => `
+          <article class="gallery-card" onclick="location.href='gallery-view.html?id=${item.id}'">
+            <div class="gallery-thumbnail">
+              ${item.thumbnail_path || item.image_path
+                ? `<img src="${item.thumbnail_path || item.image_path}" alt="${escapeHtml(item.title)}" loading="lazy">`
+                : '<span>사진</span>'}
+            </div>
+            <div class="gallery-info">
+              <h3 class="gallery-title-text">${escapeHtml(item.title)}</h3>
+              <time datetime="${item.created_at}" class="gallery-date">${item.created_at_formatted}</time>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      // 페이지네이션 렌더링
+      function renderPagination(pagination) {
+        const container = document.getElementById('pagination');
+        const { current_page, total_pages } = pagination;
+
+        if (total_pages <= 1) {
+          container.innerHTML = '';
+          return;
+        }
+
+        let html = '';
+
+        // 이전 버튼
+        if (current_page > 1) {
+          html += `<button class="page-btn" onclick="loadGallery(${current_page - 1})">이전</button>`;
+        }
+
+        // 페이지 번호
+        const startPage = Math.max(1, current_page - 2);
+        const endPage = Math.min(total_pages, current_page + 2);
+
+        for (let i = startPage; i <= endPage; i++) {
+          if (i === current_page) {
+            html += `<button class="page-btn current" disabled>${i}</button>`;
+          } else {
+            html += `<button class="page-btn" onclick="loadGallery(${i})">${i}</button>`;
+          }
+        }
+
+        // 다음 버튼
+        if (current_page < total_pages) {
+          html += `<button class="page-btn" onclick="loadGallery(${current_page + 1})">다음</button>`;
+        }
+
+        container.innerHTML = html;
+      }
+
+      // HTML 이스케이프
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+    </script>
   </body>
 </html>

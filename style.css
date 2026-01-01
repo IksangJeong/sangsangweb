@@ -55,20 +55,16 @@
   flex-grow: 1;
 }
 
-.index-page-desktop .nav-logo-box h1,
-.index-page-desktop .text-wrapper {
-  width: fit-content;
-  height: 30px;
-  font-family: 'Spoqa Han Sans Neo', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 30px;
-  color: #000000;
-  margin: 0;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+.index-page-desktop .nav-logo-box a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.index-page-desktop .nav-logo {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
 }
 
 .index-page-desktop .navbar {
@@ -221,7 +217,7 @@
 .index-page-desktop .frame-2 {
   width: 760px;
   height: 360px;
-  background: url(img/frame-45.png);
+  background: url(img/Frame-45.png);
   background-size: cover;
   background-position: center;
   border-radius: 30px;
@@ -608,6 +604,7 @@
   font-size: 16px;
   line-height: 20px;
   color: #1D4ED8;
+  transition: color 0.3s ease;
 }
 
 .index-page-desktop .frame-14 {
@@ -633,6 +630,18 @@
   font-size: 16px;
   line-height: 20px;
   color: #434343;
+  transition: color 0.3s ease;
+}
+
+/* 탭 활성 상태 스타일 */
+.index-page-desktop .tab-btn.active .text-wrapper-11,
+.index-page-desktop .tab-btn.active .text-wrapper-12 {
+  color: #1D4ED8;
+}
+
+.index-page-desktop .tab-btn:not(.active) .text-wrapper-11,
+.index-page-desktop .tab-btn:not(.active) .text-wrapper-12 {
+  color: #434343;
 }
 
 .index-page-desktop .rectangle {
@@ -642,6 +651,7 @@
   left: 0px;
   top: 36px;
   background: #1D4ED8;
+  transition: left 0.3s ease;
 }
 
 .index-page-desktop .frame-15 {
@@ -946,7 +956,7 @@
   align-items: center;
   padding: 0px;
   width: 100%;
-  height: 400px;
+  height: 200px;
   background: #F9FBFF;
   flex: none;
   order: 5;
@@ -961,7 +971,7 @@
   padding: 24px 27px;
   gap: 4px;
   width: 1160px;
-  height: 400px;
+  height: 200px;
   flex: none;
   order: 0;
   align-self: stretch;

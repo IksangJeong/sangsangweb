@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>글 작성 - 상상마루 관리자</title>
+    <link rel="stylesheet" href="../../css/globals.css" />
+    <link rel="stylesheet" href="../../css/variables.css" />
+    <link rel="stylesheet" href="../../css/dropdown.css" />
+    <link rel="stylesheet" href="../../css/common.css" />
+    <link rel="stylesheet" href="write.css" />
+    <script src="../../js/api.js" defer></script>
+  </head>
+  <body>
+    <div class="admin-page">
+      <header class="nav-container">
+        <nav class="nav-inner-container">
+          <div class="nav-logo-box">
+            <a href="../../index.html">
+              <img src="../../img/logo.png" alt="상상 마루" class="nav-logo" />
+            </a>
+          </div>
+          <ul class="navbar" role="menubar">
+            <li class="div nav-item" role="menuitem">
+              <a href="../about/greeting.html">단체소개</a>
+              <ul class="dropdown-menu">
+                <li><a href="../about/greeting.html">인사말</a></li>
+                <li><a href="../about/history.html">연혁</a></li>
+                <li><a href="../about/location.html">오시는 길</a></li>
+              </ul>
+            </li>
+            <li class="div nav-item no-dropdown" role="menuitem">
+              <a href="#">진로·직업체험</a>
+            </li>
+            <li class="div nav-item" role="menuitem">
+              <a href="../education/afterschool.html">교육활동</a>
+              <ul class="dropdown-menu">
+                <li><a href="../education/afterschool.html">방과후/늘봄 교육</a></li>
+                <li><a href="../education/outside.html">학교밖 늘봄교육</a></li>
+                <li><a href="../education/freeyear.html">자유학년(기)제</a></li>
+                <li><a href="../education/drone.html">탑마루드론축구단</a></li>
+                <li><a href="../education/hrd.html">HRD-Net강사양성과정</a></li>
+                <li><a href="../education/volunteer.html">교육기부 진로체험</a></li>
+              </ul>
+            </li>
+            <li class="div nav-item" role="menuitem">
+              <a href="../experience/creative.html">체험활동</a>
+              <ul class="dropdown-menu">
+                <li><a href="../experience/creative.html">창의적체험활동</a></li>
+                <li><a href="../experience/swai.html">SW.AI교육주간</a></li>
+                <li><a href="../experience/science.html">과학의날 행사 지원</a></li>
+                <li><a href="../experience/culture.html">문화예술체험 교육</a></li>
+              </ul>
+            </li>
+            <li class="div nav-item active" role="menuitem">
+              <a href="../community/notice.html">커뮤니티</a>
+              <ul class="dropdown-menu">
+                <li><a href="../community/notice.html">공지사항</a></li>
+                <li><a href="../community/press.html">보도자료</a></li>
+                <li><a href="../community/gallery.html">포토갤러리</a></li>
+              </ul>
+            </li>
+            <li class="div nav-item no-dropdown" role="menuitem">
+              <a href="../store/store.html">스토어</a>
+            </li>
+          </ul>
+          <div class="nav-button-box">
+            <!-- JS로 업데이트 -->
+          </div>
+        </nav>
+      </header>
+
+      <main class="admin-content">
+        <div class="admin-container">
+          <h2 class="admin-title">글 작성</h2>
+
+          <form id="write-form" class="write-form">
+            <div class="form-group">
+              <label for="board-type">게시판 선택</label>
+              <select id="board-type" name="type" required>
+                <option value="notice">공지사항</option>
+                <option value="press">보도자료</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="title">제목</label>
+              <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required maxlength="255" />
+            </div>
+
+            <div class="form-group">
+              <label for="content">내용</label>
+              <textarea id="content" name="content" rows="15" placeholder="내용을 입력하세요" required></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
+              <button type="submit" class="btn btn-primary">등록하기</button>
+            </div>
+          </form>
+
+          <div id="message" class="message"></div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-inner">
+          <div class="footer-info">
+            <h2>상상마루</h2>
+            <address>
+              <p>익산시 원광대학교</p>
+              <p>063-1234-1234</p>
+              <p>Iksan@gmail.com</p>
+            </address>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', async function() {
+        // URL에서 게시판 타입 파라미터 읽기
+        const urlParams = new URLSearchParams(window.location.search);
+        const boardType = urlParams.get('type');
+
+        // 유효한 타입이면 자동 선택 및 드롭다운 숨김
+        if (boardType === 'notice' || boardType === 'press') {
+          document.getElementById('board-type').value = boardType;
+          document.querySelector('.form-group:has(#board-type)').style.display = 'none';
+
+          // 페이지 타이틀 변경
+          const titleText = boardType === 'notice' ? '공지사항 작성' : '보도자료 작성';
+          document.querySelector('.admin-title').textContent = titleText;
+        }
+
+        // 로그인 상태 및 관리자 권한 확인
+        try {
+          const response = await AuthAPI.checkStatus();
+
+          if (!response.logged_in) {
+            alert('로그인이 필요합니다.');
+            window.location.href = '../login.html?redirect=/pages/admin/write.html';
+            return;
+          }
+
+          if (response.user.role !== 'admin') {
+            alert('관리자 권한이 필요합니다.');
+            window.location.href = '../../index.html';
+            return;
+          }
+
+          // 네비게이션 업데이트
+          UIHelper.updateNavigation();
+
+        } catch (error) {
+          alert('권한 확인 중 오류가 발생했습니다.');
+          window.location.href = '../../index.html';
+          return;
+        }
+
+        // 폼 제출
+        const form = document.getElementById('write-form');
+        const messageEl = document.getElementById('message');
+
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+
+          const type = document.getElementById('board-type').value;
+          const title = document.getElementById('title').value.trim();
+          const content = document.getElementById('content').value.trim();
+
+          if (!title || !content) {
+            messageEl.textContent = '제목과 내용을 모두 입력해주세요.';
+            messageEl.className = 'message error';
+            return;
+          }
+
+          try {
+            const response = await PostsAPI.create(type, title, content);
+
+            if (response.success) {
+              messageEl.textContent = '글이 등록되었습니다.';
+              messageEl.className = 'message success';
+
+              // 해당 게시판으로 이동
+              setTimeout(() => {
+                window.location.href = `../community/${type === 'notice' ? 'notice' : 'press'}.html`;
+              }, 1000);
+            }
+          } catch (error) {
+            messageEl.textContent = error.message || '글 등록 중 오류가 발생했습니다.';
+            messageEl.className = 'message error';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

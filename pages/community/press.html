@@ -11,13 +11,14 @@
     <link rel="stylesheet" href="../../css/animations.css" />
     <link rel="stylesheet" href="community.css" />
     <link rel="stylesheet" href="../../css/responsive.css" />
+    <script src="../../js/api.js" defer></script>
   </head>
   <body>
     <div class="community-page">
       <header class="nav-container">
         <nav class="nav-inner-container">
           <div class="nav-logo-box">
-            <a href="../../index.html"><h1 class="text-wrapper">상상 마루</h1></a>
+            <a href="../../index.html"><img src="../../img/logo.png" alt="상상 마루" class="nav-logo" /></a>
           </div>
           <ul class="navbar" role="menubar">
             <li class="div nav-item" role="menuitem">
@@ -58,6 +59,9 @@
                 <li><a href="press.html" class="active">보도자료</a></li>
                 <li><a href="gallery.html">포토갤러리</a></li>
               </ul>
+            </li>
+            <li class="div nav-item no-dropdown" role="menuitem">
+              <a href="../store/store.html">스토어</a>
             </li>
           </ul>
           <div class="nav-button-box">
@@ -103,6 +107,10 @@
             <div class="section-header">
               <h2 class="section-title" id="press-title">보도자료</h2>
               <div class="section-underline" aria-hidden="true"></div>
+              <!-- 관리자 글 작성 버튼 -->
+              <a href="../admin/write.html?type=press" id="write-btn" class="write-btn" style="display: none;">
+                <span>글 작성</span>
+              </a>
             </div>
 
             <div class="notice-table">
@@ -114,46 +122,13 @@
                 <div class="col-views" role="columnheader">조회</div>
               </div>
 
-              <article class="table-row" role="row">
-                <div class="col-num" role="cell">5</div>
-                <div class="col-title" role="cell"><a href="#">[전북일보] 상상마루, 청소년 진로체험 프로그램 호응</a></div>
-                <div class="col-author" role="cell">관리자</div>
-                <div class="col-date" role="cell"><time datetime="2025-12-18">2025.12.18</time></div>
-                <div class="col-views" role="cell">856</div>
-              </article>
-
-              <article class="table-row" role="row">
-                <div class="col-num" role="cell">4</div>
-                <div class="col-title" role="cell"><a href="#">[익산시민신문] SW.AI 교육주간 성황리에 마무리</a></div>
-                <div class="col-author" role="cell">관리자</div>
-                <div class="col-date" role="cell"><time datetime="2025-12-12">2025.12.12</time></div>
-                <div class="col-views" role="cell">723</div>
-              </article>
-
-              <article class="table-row" role="row">
-                <div class="col-num" role="cell">3</div>
-                <div class="col-title" role="cell"><a href="#">[교육청 보도자료] 자유학년제 우수 프로그램 선정</a></div>
-                <div class="col-author" role="cell">관리자</div>
-                <div class="col-date" role="cell"><time datetime="2025-12-05">2025.12.05</time></div>
-                <div class="col-views" role="cell">1102</div>
-              </article>
-
-              <article class="table-row" role="row">
-                <div class="col-num" role="cell">2</div>
-                <div class="col-title" role="cell"><a href="#">[전라일보] 탑마루드론축구단 창단식 개최</a></div>
-                <div class="col-author" role="cell">관리자</div>
-                <div class="col-date" role="cell"><time datetime="2025-11-28">2025.11.28</time></div>
-                <div class="col-views" role="cell">945</div>
-              </article>
-
-              <article class="table-row" role="row">
-                <div class="col-num" role="cell">1</div>
-                <div class="col-title" role="cell"><a href="#">[익산투데이] 상상마루 진로교육 플랫폼 출범</a></div>
-                <div class="col-author" role="cell">관리자</div>
-                <div class="col-date" role="cell"><time datetime="2025-11-20">2025.11.20</time></div>
-                <div class="col-views" role="cell">1587</div>
-              </article>
+              <div id="post-list">
+                <div class="loading-message">게시글을 불러오는 중...</div>
+              </div>
             </div>
+
+            <!-- 페이지네이션 -->
+            <nav class="pagination" id="pagination" aria-label="페이지 네비게이션"></nav>
           </section>
         </div>
       </main>
@@ -168,11 +143,119 @@
               <p>Iksan@gmail.com</p>
             </address>
           </div>
-          <div class="footer-map">
-            <div class="map-placeholder">지도</div>
-          </div>
         </div>
       </footer>
     </div>
+
+    <script>
+      let currentPage = 1;
+      const POSTS_PER_PAGE = 10;
+
+      // HTML 이스케이프
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // 게시글 목록 로드
+      async function loadPosts(page = 1) {
+        const container = document.getElementById('post-list');
+
+        try {
+          const response = await PostsAPI.list('press', page, POSTS_PER_PAGE);
+
+          if (response.success) {
+            renderPostList(response.data);
+            if (response.pagination) {
+              renderPagination(response.pagination);
+            }
+          } else {
+            container.innerHTML = '<div class="no-posts">게시글을 불러오는데 실패했습니다.</div>';
+          }
+        } catch (error) {
+          console.error('게시글 로드 실패:', error);
+          container.innerHTML = '<div class="no-posts">게시글을 불러오는데 실패했습니다.</div>';
+        }
+      }
+
+      // 게시글 목록 렌더링
+      function renderPostList(posts) {
+        const container = document.getElementById('post-list');
+
+        if (!posts || posts.length === 0) {
+          container.innerHTML = '<div class="no-posts">등록된 게시글이 없습니다.</div>';
+          return;
+        }
+
+        container.innerHTML = posts.map(post => `
+          <article class="table-row" role="row">
+            <div class="col-num" role="cell">${post.id}</div>
+            <div class="col-title" role="cell">
+              <a href="view.html?id=${post.id}">${escapeHtml(post.title)}</a>
+            </div>
+            <div class="col-author" role="cell">${escapeHtml(post.author || post.author_name || '관리자')}</div>
+            <div class="col-date" role="cell">
+              <time datetime="${post.created_at}">${post.created_at_formatted || post.created_at}</time>
+            </div>
+            <div class="col-views" role="cell">${post.views || 0}</div>
+          </article>
+        `).join('');
+      }
+
+      // 페이지네이션 렌더링
+      function renderPagination(pagination) {
+        const container = document.getElementById('pagination');
+        if (!pagination || pagination.total_pages <= 1) {
+          container.innerHTML = '';
+          return;
+        }
+
+        let html = '';
+
+        // 이전 버튼
+        if (pagination.page > 1) {
+          html += `<button class="page-btn" onclick="goToPage(${pagination.page - 1})">이전</button>`;
+        }
+
+        // 페이지 번호
+        for (let i = 1; i <= pagination.total_pages; i++) {
+          if (i === pagination.page) {
+            html += `<span class="page-btn current">${i}</span>`;
+          } else {
+            html += `<button class="page-btn" onclick="goToPage(${i})">${i}</button>`;
+          }
+        }
+
+        // 다음 버튼
+        if (pagination.page < pagination.total_pages) {
+          html += `<button class="page-btn" onclick="goToPage(${pagination.page + 1})">다음</button>`;
+        }
+
+        container.innerHTML = html;
+      }
+
+      // 페이지 이동
+      function goToPage(page) {
+        currentPage = page;
+        loadPosts(page);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      document.addEventListener('DOMContentLoaded', async function() {
+        // 네비게이션 업데이트
+        if (typeof UIHelper !== 'undefined') {
+          await UIHelper.updateNavigation();
+
+          // 관리자인 경우 글 작성 버튼 표시
+          if (window.currentUser && window.currentUser.role === 'admin') {
+            document.getElementById('write-btn').style.display = 'inline-flex';
+          }
+        }
+
+        // 게시글 목록 로드
+        loadPosts(currentPage);
+      });
+    </script>
   </body>
 </html>

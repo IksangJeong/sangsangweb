@@ -128,12 +128,22 @@
 
 .section-header {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
   padding: 0px;
   gap: 10px;
   padding-bottom: 10px;
   width: 100%;
+}
+
+.section-header .section-title {
+  margin-right: auto;
+}
+
+.section-header .section-underline {
+  width: 100%;
+  order: 3;
 }
 
 .section-title {
@@ -154,12 +164,49 @@
   background-color: #1D4ED8;
 }
 
+/* 글 작성 버튼 스타일 */
+.write-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #1F63C9;
+  color: #FFFFFF;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  gap: 6px;
+}
+
+.write-btn:hover {
+  background-color: #1854B0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(31, 99, 201, 0.3);
+}
+
+.write-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
 /* Table Styles */
 .notice-table {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   padding: 0px;
+  width: 100%;
+}
+
+#post-list {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -211,7 +258,10 @@
 
 .col-title {
   flex: 1;
-  min-width: 200px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .col-title a {
@@ -256,11 +306,12 @@
   flex-direction: column;
   gap: 12px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .gallery-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .gallery-thumbnail {
@@ -314,7 +365,7 @@
   align-items: center;
   padding: 0px;
   width: 100%;
-  height: 400px;
+  height: 200px;
   background: #F9FBFF;
   flex: none;
   align-self: stretch;
@@ -328,7 +379,7 @@
   padding: 24px 27px;
   gap: 4px;
   width: 1160px;
-  height: 400px;
+  height: 200px;
   flex: none;
   align-self: stretch;
   flex-grow: 0;
@@ -339,8 +390,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 40px 0px;
-  gap: 18px;
+  padding: 20px 0px;
+  gap: 12px;
   flex: none;
   align-self: stretch;
   flex-grow: 1;
@@ -405,6 +456,67 @@
   color: #94A3B8;
   font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-size: 14px;
+}
+
+/* Loading & No Posts Message */
+.loading-message,
+.no-posts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 15px;
+  color: #6A7282;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.loading-message {
+  color: #94A3B8;
+}
+
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 30px 0;
+  width: 100%;
+}
+
+.page-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 12px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-btn:hover {
+  background-color: #F8FAFC;
+  border-color: #1F63C9;
+  color: #1F63C9;
+}
+
+.page-btn.current {
+  background-color: #1F63C9;
+  border-color: #1F63C9;
+  color: #FFFFFF;
+  font-weight: 500;
+  cursor: default;
 }
 
 /* Responsive */

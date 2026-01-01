@@ -12,13 +12,14 @@
     <link rel="stylesheet" href="../../css/page-common.css" />
     <link rel="stylesheet" href="education.css" />
     <link rel="stylesheet" href="../../css/responsive.css" />
+    <script src="../../js/api.js" defer></script>
   </head>
   <body>
     <div class="page-container">
       <header class="nav-container">
         <nav class="nav-inner-container">
           <div class="nav-logo-box">
-            <a href="../../index.html"><h1 class="text-wrapper">상상 마루</h1></a>
+            <a href="../../index.html"><img src="../../img/logo.png" alt="상상 마루" class="nav-logo" /></a>
           </div>
           <ul class="navbar" role="menubar">
             <li class="div nav-item" role="menuitem">
@@ -59,6 +60,9 @@
                 <li><a href="../community/press.html">보도자료</a></li>
                 <li><a href="../community/gallery.html">포토갤러리</a></li>
               </ul>
+            </li>
+            <li class="div nav-item no-dropdown" role="menuitem">
+              <a href="../store/store.html">스토어</a>
             </li>
           </ul>
           <div class="nav-button-box">
@@ -196,11 +200,16 @@
               <p>Iksan@gmail.com</p>
             </address>
           </div>
-          <div class="footer-map">
-            <div class="map-placeholder">지도</div>
-          </div>
         </div>
       </footer>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', async function() {
+        if (typeof UIHelper !== 'undefined') {
+          await UIHelper.updateNavigation();
+        }
+      });
+    </script>
   </body>
 </html>
