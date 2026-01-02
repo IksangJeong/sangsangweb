@@ -374,12 +374,11 @@
 
 .footer-inner {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   padding: 24px 27px;
-  gap: 4px;
+  gap: 16px;
   width: 1160px;
-  height: 200px;
   flex: none;
   align-self: stretch;
   flex-grow: 0;
@@ -419,13 +418,28 @@
 }
 
 .footer-address p {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  color: #94A3B8;
+  font-size: 14px;
+  line-height: 22px;
+  color: #666;
   margin: 0;
+}
+
+.footer-bottom {
+  width: 100%;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 8px;
+}
+
+.footer-bottom .copyright {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+  text-align: center;
 }
 
 .footer-map {
